@@ -1,0 +1,111 @@
+		
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+.tabheader { background-color:white; border-bottom:1px solid black}
+.tabheader span { background-color:lightgrey; border:1px solid grey; margin:3px;padding:2px; cursor:default;}
+.tabheader span.selected{ background-color:grey;}
+.splitter {background-color: gray;}
+.shift {z-index:1000;background-color:black;color:white;}
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="slm.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function(){
+    $("#A").slm();
+});
+
+</script>
+</head>
+<body>
+
+
+<div id="A" layout="allpage:1,sz:'boxV'" style="background:yellow;">
+    <span id="AA" style="background:red">ciao</span>
+    <div id="AB" layout="p:1,ex:1,sz:'tab'" style="background:green">
+        <div layout="sz:'boxH',title:'LEFT sidebar'">
+			<span layout="w:200,ex:1" style="background:purple">left sidebar</span>
+			<div layout="p:1,ex:1,sz:'tab'">
+				<div style="background:red">Questa è la tab 0</div>
+				<div style="background:green">Questa è la tab 1</div>
+				<div style="background:blue">Questa è la tab 2</div>
+			</div>
+		</div>
+        <div layout="sz:'boxH',title:'RIGHT sidebar'">
+			<div layout="p:1,ex:1,sz:'tab'">
+				<div style="background:cyan">Questa è la tab 0</div>
+				<div style="background:magenta">Questa è la tab 1</div>
+				<div style="background:orange">Questa è la tab 2</div>
+			</div>
+			<span layout="w:200,ex:1" style="background:purple">right sidebar</span>
+		</div>
+        <div layout="sz:'boxV',title:'TOP sidebar'">
+			<span layout="h:200,ex:1" style="background:purple">top bar</span>
+			<div layout="p:1,ex:1,sz:'tab'">
+				<div style="background:red">Questa è la tab 0</div>
+				<div style="background:green">Questa è la tab 1</div>
+				<div style="background:blue">Questa è la tab 2</div>
+			</div>
+		</div>
+        <div layout="sz:'boxV',title:'BOTTOM sidebar'">
+			<div layout="p:1,ex:1,sz:'tab'">
+				<div style="background:cyan">Questa è la tab 0</div>
+				<div style="background:magenta">Questa è la tab 1</div>
+				<div style="background:orange">Questa è la tab 2</div>
+			</div>
+			<span layout="h:200,ex:1" style="background:purple">bottom bar</span>
+		</div>
+		<div layout="sz:'splitV',sash:50,title:'V split'">
+			<span id="llll" style="background:purple">split TOP (fixed)</span>
+			<div layout="ex:1,sz:'tab'">
+				<div style="background:cyan">Questa è la tab 0</div>
+				<div style="background:magenta">Questa è la tab 1</div>
+				<div style="background:orange">Questa è la tab 2</div>
+			</div>
+		</div>
+        <div layout="sz:'splitH',sash:50,title:'H split'">
+			<span id="llll" style="background:purple">split LEFT (fixed)</span>
+			<div layout="ex:1,sz:'tab'">
+				<div style="background:cyan">Questa è la tab 0</div>
+				<div style="background:magenta">Questa è la tab 1</div>
+				<div style="background:orange">Questa è la tab 2</div>
+			</div>
+		</div>
+		<div layout="sz:'splitV',sash:50,title:'NESTED Vsplit/Hsplit'">
+			<div style="background:cyan">t0</div>
+			<div layout="ex:1,sz:'splitH',sash:50">
+				<div style="background:magenta">t1</div>
+				<div layout="ex:1,sz:'splitV',sash:50">
+					<div style="background:yellow">t2</div>
+					<div layout="ex:1,sz:'splitH',sash:50">
+						<div style="background:orange">t3</div>
+						<div style="background:purple">t3</div>
+					</div>
+				</div>
+			</div>
+		</div>
+            <div layout="ex:1,sz:'shift',title:'SHIFT'">
+				<div style="background:cyan">Questa è la tab 0</div>
+				<div style="background:magenta">Questa è la tab 1</div>
+				<div style="background:orange">Questa è la tab 2</div>
+				<div layout="ex:1,sz:'splitH',sash:50">
+						<div style="background:orange">t3</div>
+						<div style="background:purple">t3</div>
+				</div>
+		</div>
+    </div>
+    <button id="AC" layout="ex:1" >cliccami</button>
+	<button id="AC" >cliccami 2</button>
+    <div layout="ex:1,sz:'tab'">
+		<div style="background:yellow">ciao</div>    
+		<div style="background:red">mona</div>
+		<div style="background:green">de</div>
+		<div style="background:blue">goma</div>
+	</div>
+</div>
+
+</body>
+</html>
