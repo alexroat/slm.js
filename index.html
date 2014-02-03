@@ -13,6 +13,15 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="slm.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(function(){
+    $("#root").slm();
+});
+</script>
+
     <title>Slm.js by alexroat</title>
   </head>
 
@@ -37,8 +46,45 @@ You have several ( 5 by now) layout manager available that will handle the geome
 You simply have to configure the layout through the "layout" attribute keeping your HTML code clean and readable without 
 complex combinations of css classes.</p>
 
-<p>Try the demo <a href="demo.html">here</a> and check the source code to see how much simple and obvious is it.</p>
-        
+ 
+
+<p> Look below and drag the splitters with the mouse ... that's only a taste! </p>
+<div id="root" layout="sz:'splitV',sash:100" style="width:100%;height:300px">
+		<div style="background:cyan">Cyan</div>
+		<div layout="ex:1,sz:'splitH',sash:100">
+			<div style="background:magenta">Magenta</div>
+			<div layout="ex:1,sz:'splitV',sash:100">
+				<div style="background:yellow">Yellow</div>
+				<div layout="ex:1,sz:'splitH',sash:100">
+					<div style="background:orange">Orange</div>
+					<div style="background:lightgreen">Green</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<p> Cool! But the amazing part is the source code that you need in order to obtain this.</p>
+<textarea style="margin: 2px; width: 690px; height: 99px;">
+&lt;div id="root" layout="sz:'splitV',sash:100" style="width:100%;height:300px"&gt;
+	&lt;div style="background:cyan"&gt;Cyan&lt;/div&gt;
+	&lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
+		&lt;div style="background:magenta"&gt;Magenta&lt;/div&gt;
+    	&lt;div layout="ex:1,sz:'splitV',sash:100"&gt;
+			&lt;div style="background:yellow"&gt;Yellow&lt;/div&gt;
+			&lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
+				&lt;div style="background:orange"&gt;Orange &lt;/div&gt;
+				&lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</textarea>
+
+
+
+<p>Try the <a href="demo.html">DEMO</a> and check the source code to see how much simple and obvious is it.</p>
           
         </section>
 
