@@ -24,65 +24,65 @@ $(function(){
 
 
 <div id="A" layout="allpage:1,sz:'boxV'" style="background:yellow;">
-    <span id="AA" style="background:red">ciao</span>
+    <span id="AA" style="background:red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
     <div id="AB" layout="p:1,ex:1,sz:'tab'" style="background:green">
         <div layout="sz:'boxH',title:'LEFT sidebar'">
-			<span layout="w:200,ex:1" style="background:purple">left sidebar</span>
+			<span layout="w:200,ex:1" style="background:purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>
 			<div layout="p:1,ex:1,sz:'tab'">
-				<div style="background:red">Questa è la tab 0</div>
-				<div style="background:green">Questa è la tab 1</div>
-				<div style="background:blue">Questa è la tab 2</div>
+				<div style="background:red">I'm the nested tab 0</div>
+				<div style="background:green">I'm the nested tab 1</div>
+				<div style="background:blue">I'm the nested tab 2</div>
 			</div>
 		</div>
         <div layout="sz:'boxH',title:'RIGHT sidebar'">
 			<div layout="p:1,ex:1,sz:'tab'">
-				<div style="background:cyan">Questa è la tab 0</div>
-				<div style="background:magenta">Questa è la tab 1</div>
-				<div style="background:orange">Questa è la tab 2</div>
+				<div style="background:cyan">I'm the nested tab 0</div>
+				<div style="background:magenta">I'm the nested tab 1</div>
+				<div style="background:orange">I'm the nested tab 2</div>
 			</div>
-			<span layout="w:200,ex:1" style="background:purple">right sidebar</span>
+			<span layout="w:200,ex:1" style="background:purple">The same as before but I'm a sidebar on the right instead, checkout my code in order to see how much simple is to create me</span>
 		</div>
         <div layout="sz:'boxV',title:'TOP sidebar'">
-			<span layout="h:200,ex:1" style="background:purple">top bar</span>
+			<span layout="h:200,ex:1" style="background:purple">The same , but I'm a sort of nested header, a top bar. My height will remain constant.</span>
 			<div layout="p:1,ex:1,sz:'tab'">
-				<div style="background:red">Questa è la tab 0</div>
-				<div style="background:green">Questa è la tab 1</div>
-				<div style="background:blue">Questa è la tab 2</div>
+				<div style="background:red">I'm the nested tab 0</div>
+				<div style="background:green">I'm the nested tab 1</div>
+				<div style="background:blue">I'm the nested tab 2</div>
 			</div>
 		</div>
         <div layout="sz:'boxV',title:'BOTTOM sidebar'">
 			<div layout="p:1,ex:1,sz:'tab'">
-				<div style="background:cyan">Questa è la tab 0</div>
-				<div style="background:magenta">Questa è la tab 1</div>
-				<div style="background:orange">Questa è la tab 2</div>
+				<div style="background:cyan">I'm the nested tab 0</div>
+				<div style="background:magenta">I'm the nested tab 1</div>
+				<div style="background:orange">I'm the nested tab 2</div>
 			</div>
-			<span layout="h:200,ex:1" style="background:purple">bottom bar</span>
+			<span layout="h:200,ex:1" style="background:purple">The same , but I'm a sort of nested footer, a bottom bar</span>
 		</div>
-		<div layout="sz:'splitV',sash:50,title:'V split'">
-			<span id="llll" style="background:purple">split TOP (fixed)</span>
+		<div layout="sz:'splitV',sash:100,title:'V split'">
+			<span id="llll" style="background:purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
 			<div layout="ex:1,sz:'tab'">
-				<div style="background:cyan">Questa è la tab 0</div>
-				<div style="background:magenta">Questa è la tab 1</div>
-				<div style="background:orange">Questa è la tab 2</div>
+				<div style="background:cyan">I'm the nested tab 0</div>
+				<div style="background:magenta">I'm the nested tab 1</div>
+				<div style="background:orange">I'm the nested tab 2</div>
 			</div>
 		</div>
-        <div layout="sz:'splitH',sash:50,title:'H split'">
-			<span id="llll" style="background:purple">split LEFT (fixed)</span>
+        <div layout="sz:'splitH',sash:200,title:'H split'">
+			<span id="llll" style="background:purple">I'm a splitter too, but I'm working horizontally</span>
 			<div layout="ex:1,sz:'tab'">
-				<div style="background:cyan">Questa è la tab 0</div>
-				<div style="background:magenta">Questa è la tab 1</div>
-				<div style="background:orange">Questa è la tab 2</div>
+				<div style="background:cyan">I'm the nested tab 0</div>
+				<div style="background:magenta">I'm the nested tab 1</div>
+				<div style="background:orange">I'm the nested tab 2</div>
 			</div>
 		</div>
-		<div layout="sz:'splitV',sash:50,title:'NESTED Vsplit/Hsplit'">
-			<div style="background:cyan">t0</div>
-			<div layout="ex:1,sz:'splitH',sash:50">
-				<div style="background:magenta">t1</div>
-				<div layout="ex:1,sz:'splitV',sash:50">
-					<div style="background:yellow">t2</div>
-					<div layout="ex:1,sz:'splitH',sash:50">
-						<div style="background:orange">t3</div>
-						<div style="background:purple">t3</div>
+		<div layout="sz:'splitV',sash:100,title:'NESTED Vsplit/Hsplit'">
+			<div style="background:cyan">split ...</div>
+			<div layout="ex:1,sz:'splitH',sash:100">
+				<div style="background:magenta">and split ...</div>
+				<div layout="ex:1,sz:'splitV',sash:100">
+					<div style="background:yellow">and split again ...</div>
+					<div layout="ex:1,sz:'splitH',sash:100">
+						<div style="background:orange">we are a set of nested splitters .. an example about how much powerful is slm.js .. </div>
+						<div style="background:purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
 					</div>
 				</div>
 			</div>
@@ -91,7 +91,7 @@ $(function(){
 				<div style="background:cyan">The shift sizer allows you to rotate throught the children, I'm the first</div>
 				<div style="background:magenta">I'm the second</div>
 				<div style="background:orange">I'm the third</div>
-				<div layout="ex:1,sz:'splitH',sash:50">
+				<div layout="ex:1,sz:'splitH',sash:200">
 						<div style="background:orange">Hey, I'm the fourth, bu I'm in a nested splitter and my brother is on the right</div>
 						<div style="background:purple">I'm the brother</div>
 				</div>
