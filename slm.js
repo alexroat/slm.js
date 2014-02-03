@@ -135,6 +135,29 @@ $.fn.slm=function()
             
             return false;
         },
+        accordion:function()
+        {
+            var c,r,i,o;
+            c = self.children().not(".accheader");
+			t.sel=isNaN(t.sel)?0:t.sel;
+            //creazione header accordion
+            self.children(".accheader").remove();
+            var r=self.innerHeight();
+            for (i=0;i<c.size();i++)
+            {
+                var cc=$(c[i]);
+				var pt=getT(cc);
+				pt.title=(pt.title==undefined)?"acc "+i:pt.title;
+                var s=$("<div/>").addClass("accheader").text(pt.title).insertBefore(cc).toggleClass("selected",i==t.sel);
+				s.click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
+                r-=s.outerHeight();
+            }
+            //adattamento children
+            c.hide();
+            t.sel=isNaN(t.sel)?0:t.sel%c.size();
+            $(c[t.sel]).show().css({left:0,right:0,height:r});
+            return false;
+        },
 		shift:function()
         {
             var c,r,i,o;
