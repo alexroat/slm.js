@@ -12,8 +12,6 @@
 .accheader{background-color:lightgrey;border:1px solid grey}
 .accheader.selected{ background-color:grey;color: white;}
 
-.hidden{visibility:hidden;}
-
 .col-green{background-color:lightgreen}
 .col-yellow{background-color:lightyellow}
 .col-red{background-color:coral}
@@ -45,7 +43,7 @@ $(function(){
 
 
 <div id="A" layout="allpage:1,sz:'boxV'" class="col-yellow;">
-    <span id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
+    <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
     <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
         <div layout="sz:'boxH',title:'LEFT sidebar'">
 			<span layout="w:200,ex:1" class="col-purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>

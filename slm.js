@@ -129,9 +129,9 @@ $.fn.slm=function()
             {
                 var cc=$(c[i]);
                 cc.css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0});
-                cc.toggleClass("hidden",true);
+                cc.hide();
             }
-            $(c[t.sel]).toggleClass("hidden",false);
+            $(c[t.sel]).show();
             
             return false;
         },
@@ -153,9 +153,9 @@ $.fn.slm=function()
                 r-=s.outerHeight();
             }
             //adattamento children
-            c.toggleClass("hidden",true);
+            c.hide();
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
-            $(c[t.sel]).toggleClass("hidden",false).css({left:0,right:0,height:r});
+            $(c[t.sel]).show().css({left:0,right:0,height:r});
             return false;
         },
 		shift:function()
@@ -176,9 +176,9 @@ $.fn.slm=function()
             {
 				var cc=$(c[i]);
                 cc.css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0});
-                cc.toggleClass("hidden",true);
+                cc.hide();
             }
-            $(c[t.sel]).toggleClass("hidden",false);
+            $(c[t.sel]).show();
             return false;
         },
 		splitV:function()
