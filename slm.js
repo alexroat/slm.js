@@ -25,6 +25,7 @@ $.fn.slm=function()
 
     var t=getT(self);
 
+    self.css("overflow",t.scroll?"auto":"hidden");
 
     if (t.allpage)
     {
@@ -37,8 +38,7 @@ $.fn.slm=function()
         boxV:function()
         {
             var c,r,i,o;
-            self.css("overflow","auto");
-            c = self.children();
+            c = self.children().css({"width":"","height":""});
             r=self.innerHeight();
             var ta=[];
             var tp=0;
@@ -72,8 +72,7 @@ $.fn.slm=function()
         boxH:function()
         {
             var c,r,i,o;
-            self.css("overflow","auto");
-            c = self.children();
+            c = self.children().css({"width":"","height":""});
             r=self.innerWidth();
             var ta=[];
             var tp=0;
@@ -107,7 +106,7 @@ $.fn.slm=function()
         tab:function()
         {
             var c,r,i,o;
-            c = self.children().not(".tabheader");
+            c = self.children().not(".tabheader").css({"width":"","height":""});;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
             if (!self.children(".tabheader").length)
@@ -115,7 +114,7 @@ $.fn.slm=function()
             var header=self.children("div.tabheader").empty();
             for (i=0;i<c.size();i++)
             {
-                var cc=$(c[i]);
+                var cc=$(c[i]).css({"width":"","height":""});
 				var pt=getT(cc);
 				pt.title=(pt.title==undefined)?"tab "+i:pt.title;
                 var s=$("<span/>").text(pt.title).appendTo(header).toggleClass("selected",i==t.sel);
@@ -138,7 +137,7 @@ $.fn.slm=function()
         accordion:function()
         {
             var c,r,i,o;
-            c = self.children().not(".accheader");
+            c = self.children().not(".accheader").css({"width":"","height":""});;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header accordion
             self.children(".accheader").remove();
@@ -161,7 +160,7 @@ $.fn.slm=function()
 		shift:function()
         {
             var c,r,i,o;
-            c = self.children().not(".shift");
+            c = self.children().not(".shift").css({"width":"","height":""});;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
             if (!self.children(".shift").length)
@@ -184,8 +183,7 @@ $.fn.slm=function()
 		splitV:function()
         {
             var c,r,i,o;
-            self.css("overflow","hidden");
-            c = self.children().not(".splitter");
+            c = self.children().not(".splitter").css({"width":"","height":""});
             r=self.innerHeight();
 			t.sash=isNaN(t.sash)?self.height()/2:t.sash;
 			setT(self,t);
@@ -211,8 +209,7 @@ $.fn.slm=function()
 		splitH:function()
         {
             var c,r,i,o;
-            self.css("overflow","hidden");
-            c = self.children().not(".splitter");
+            c = self.children().not(".splitter").css({"width":"","height":""});
             r=self.innerHeight();
 			t.sash=isNaN(t.sash)?self.width()/2:t.sash;
 			setT(self,t);
