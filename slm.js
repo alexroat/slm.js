@@ -127,28 +127,26 @@ $.fn.slm=function(layout)
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
-            if (!self.children(".tabheader").length)
-                $("<div/>",{"class":"slmignore tabheader"}).css({"position":"absolute","left":0,"top":0,"right":0,"overflow":"hidden"}).prependTo(self);
-            var header=self.children("div.tabheader").empty();
-            for (i=0;i<c.size();i++)
+            if (!t.ok)
             {
-                var cc=$(c[i]);
-				var pt=getT(cc);
-				pt.title=(pt.title==undefined)?"tab "+i:pt.title;
-                var s=$("<span/>").text(pt.title).appendTo(header).toggleClass("selected",i==t.sel);
-				s.click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
-            }            
+                self.children(".slmignore").remove();
+                var header=$("<div/>",{"class":"slmignore tabheader"}).css({"position":"absolute","left":0,"top":0,"right":0,"overflow":"hidden"}).prependTo(self);
+                for (i=0;i<c.size();i++)
+                {
+                    var cc=$(c[i]);
+				    var pt=getT(cc);
+				    pt.title=(pt.title==undefined)?"tab "+i:pt.title;
+                    var s=$("<span/>").text(pt.title).appendTo(header).toggleClass("selected",i==t.sel);
+				    s.click((function(j){return function(){t.sel=j;setT(self,t);header.children().removeClass("selected");$(this).addClass("selected");self.slm();}})(i));
+                }
+                t.ok=1;
+                setT(self,t);
+            }       
             //adattamento children
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
-            var pt=t;
-            var hs=header.outerHeight();
-            for (i=0;i<c.size();i++)
-            {
-                var cc=$(c[i]);
-                cc.css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0});
-                cc.hide();
-            }
-            $(c[t.sel]).show();
+            var hs=self.children(".tabheader").outerHeight();
+            c.hide();
+            $(c[t.sel]).css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0}).show();
             
             return false;
         },
@@ -156,19 +154,29 @@ $.fn.slm=function(layout)
         {
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
-            //creazione header accordion
-            self.children(".accheader").remove();
-            var r=self.innerHeight();
-
-            for (i=0;i<c.size();i++)
+            if (!t.ok)
             {
-                var cc=$(c[i]);
-				var pt=getT(cc);
-				pt.title=(pt.title==undefined)?"acc "+i:pt.title;
-                var s=$("<div/>",{"class":"slmignore accheader"}).text(pt.title).insertBefore(cc).toggleClass("selected",i==t.sel);
-				s.click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
-                r-=s.outerHeight();
+                //creazione header accordion
+                self.children(".accheader").remove();
+                for (i=0;i<c.size();i++)
+                {
+                    var cc=$(c[i]);
+				    var ct=getT(cc);
+				    ct.title=(ct.title==undefined)?"acc "+i:ct.title;
+                    var s=$("<div/>",{"class":"slmignore accheader"})
+                    .text(ct.title)
+                    .insertBefore(cc)
+                    .toggleClass("selected",i==t.sel)
+				    .click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
+                }
+                t.ok=1;
+                setT(self,t);
             }
+            //ricalcolo spazio
+            var ac=self.children(".accheader");
+            var r=self.innerHeight();
+            for (i=0;i<ac.size();i++)
+                r-=$(ac[i]).outerHeight();
             //adattamento children
             c.hide();
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
@@ -180,21 +188,20 @@ $.fn.slm=function(layout)
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
-            if (!self.children(".shift").length)
+            if (!t.ok)
 			{
+                self.children(".slmignore").remove();
 				var sn=$("<span/>",{"class":"slmignore shift"}).text("NEXT").css({"position":"absolute","right":0,"top":0,"overflow":"hidden"}).prependTo(self);
 				var sp=$("<span/>",{"class":"slmignore shift"}).text("PREV").css({"position":"absolute","left":0,"top":0,"overflow":"hidden"}).prependTo(self);
 				sp.click(function(){t.sel=(t.sel+c.size()-1)%c.size();setT(self,t);self.slm();});
 				sn.click(function(){t.sel=(t.sel+c.size()+1)%c.size();setT(self,t);self.slm();});
+                self.children(".shift").css("top",self.innerHeight()/2);                
+                t.ok=1;
+                setT(self,t);
 			}
-			self.children(".shift").css("top",self.innerHeight()/2);
-            for (i=0;i<c.size();i++)
-            {
-				var cc=$(c[i]);
-                cc.css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0});
-                cc.hide();
-            }
-            $(c[t.sel]).show();
+			//attivazione figlio selezionato
+            c.hide();
+            $(c[t.sel]).css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0}).show();
             return false;
         },
 		splitV:function()
@@ -203,18 +210,19 @@ $.fn.slm=function(layout)
 			t.sash=isNaN(t.sash)?self.height()/2:t.sash;
 			setT(self,t);
             //creazione splitter
-            if (!self.children(".splitter").length)
+            if (!t.ok)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","left":0,"right":0,"height":5,"overflow":"hidden","cursor":"row-resize"}).prependTo(self);
                 var drag=-1;
 			    spl.mousedown(function(e){ drag=e.pageY-t.sash;});
 				self.mouseup(function(e){ drag=-1;window.event.returnValue = true;});
 			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
-            }			
+                t.ok=1;
+                setT(self,t);
+            }
+            //adattamento children	
             var p0=$(c[0]);
 			var p1=$(c[1]);
-            
-            
 			p0.css({"position":"absolute","left":0,"top":0,"right":0,"height":t.sash});
 			p1.css({"position":"absolute","left":0,"top":t.sash+5,"right":0,"bottom":0});
 			self.children(".splitter").css("top",t.sash);
@@ -226,19 +234,18 @@ $.fn.slm=function(layout)
 			t.sash=isNaN(t.sash)?self.width()/2:t.sash;
 			setT(self,t);
             //creazione splitter
-            if (!self.children(".splitter").length)
+            if (!t.ok)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self);
                 var drag=-1;
 			    spl.mousedown(function(e){ drag=e.pageX-t.sash;});
-			    //spl.mouseup(function(e){ drag=-1;});
 				self.mouseup(function(e){ drag=-1;});
 			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
+                t.ok=1;
+                setT(self,t);
             }			
             var p0=$(c[0]);
 			var p1=$(c[1]);
-            
-            
 			p0.css({"position":"absolute","top":0,"bottom":0,"left":0,"width":t.sash});
 			p1.css({"position":"absolute","top":0,"left":t.sash+5,"bottom":0,"right":0});
 			self.children(".splitter").css("left",t.sash);
