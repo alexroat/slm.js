@@ -35,6 +35,12 @@ body, button
 
 $(function(){
     $("#A").slm();
+
+
+    $("button#toggledialog").click(function(){
+        $("#A").attr("layout","mode:'dialog',sz:'boxV',w:400,h:400").slm();
+    });
+
 });
 
 </script>
@@ -42,7 +48,7 @@ $(function(){
 <body>
 
 
-<div id="A" layout="allpage:1,sz:'boxV'" class="col-yellow;">
+<div id="A" layout="mode:'allpage',sz:'boxV'" class="col-yellow;">
     <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
     <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
         <div layout="sz:'boxH',title:'LEFT sidebar'">
@@ -134,7 +140,7 @@ $(function(){
 	    </div>
         <div layout="sz:'boxV',w:150,ex:1" class="col-yellow">
             <button id="AC" layout="ex:1" >Button that extends</button>
-        	<button id="AC" >Simple button</button>
+        	<button id="toggledialog" >Turn dialog on</button>
 	    </div>
     </div>
 </div>

@@ -24,13 +24,24 @@ $.fn.slm=function(layout)
     var t=getT(self);
 
 
-    if (t.allpage)
-    {
-        self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
-        $(window).on("resize",function(){propagate();});
-    }
-
-
+    
+    var mode={
+        allpage:function()
+        {
+            self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
+            $(window).on("resize",function(){propagate();});
+        },
+        dialog:function()
+        {
+            console.log("ciao");
+            t.x=isNaN(t.x)?100:t.x;
+            t.y=isNaN(t.y)?100:t.y;
+            t.w=isNaN(t.w)?100:t.w;
+            t.h=isNaN(t.h)?100:t.h;
+            self.css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white"});
+    		self.addClass(".slmignore");
+        }
+    }[t.mode];
 	
 	
     //ricerca funzione
@@ -232,6 +243,9 @@ $.fn.slm=function(layout)
 	
 		if (self.css("position")=="static")
 			self.css("position","relative");
+
+        if (mode)
+            mode();
 	
 		if (fl)
 		{
