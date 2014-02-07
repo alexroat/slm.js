@@ -27,28 +27,36 @@ $.fn.slm=function(layout)
     var mode={
         allpage:function()
         {
-            self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
-            $(window).on("resize",function(){propagate();});
+            if (!t.ok)
+            {
+                self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
+                $(window).on("resize",function(){propagate();});
+                t.ok=1;
+                setT(self,t);
+            }
         },
         dialog:function()
         {
-            var m=10;
-            t.x=isNaN(t.x)?100:t.x;
-            t.y=isNaN(t.y)?100:t.y;
-            t.w=isNaN(t.w)?100:t.w;
-            t.h=isNaN(t.h)?100:t.h;
-            var dlg=$("<div/>",{"class":"slmdialog"}).css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
-            self.wrap(dlg);
-            dlg=self.parent();
-            var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(dlg);
-            self.css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0);
-					
-		
-            var drag;
-		    hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
-			$(document).mouseup(function(e){ drag=null;});
-		    $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];dlg.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
+            if (!t.ok)
+            {
+                var m=10;
+                t.x=isNaN(t.x)?100:t.x;
+                t.y=isNaN(t.y)?100:t.y;
+                t.w=isNaN(t.w)?100:t.w;
+                t.h=isNaN(t.h)?100:t.h;
+                var dlg=$("<div/>",{"class":"slmdialog"}).css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
+                self.wrap(dlg);
+                dlg=self.parent();
+                var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(dlg);
+                self.css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0);
 
+                var drag;
+		        hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
+			    $(document).mouseup(function(e){ drag=null;});
+		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];dlg.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
+                t.ok=1;
+                setT(self,t);
+            }
         }
     }[t.mode];
 	
