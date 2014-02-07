@@ -49,7 +49,11 @@ $.fn.slm=function(layout)
                 dlg=self.parent();
                 var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(dlg);
                 self.css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0);
+                //gestione chiusura
+                var hh=hdlg.innerHeight();
+                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red"}).appendTo(hdlg).text("X").click(function(){dlg.remove();});
 
+                //gestione spostamento
                 var drag;
 		        hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
 			    $(document).mouseup(function(e){ drag=null;});
