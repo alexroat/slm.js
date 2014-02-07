@@ -1,8 +1,6 @@
-
-$.fn.slm=function()
+$.fn.slm=function(layout)
 {
     var self=$(this);
-    
 
     function getT(s)
     {
@@ -26,19 +24,32 @@ $.fn.slm=function()
     var t=getT(self);
 
 
-    if (t.allpage)
-    {
-        self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
-        $(window).on("resize",function(){propagate();});
-    }   
-
+    
+    var mode={
+        allpage:function()
+        {
+            self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
+            $(window).on("resize",function(){propagate();});
+        },
+        dialog:function()
+        {
+            console.log("ciao");
+            t.x=isNaN(t.x)?100:t.x;
+            t.y=isNaN(t.y)?100:t.y;
+            t.w=isNaN(t.w)?100:t.w;
+            t.h=isNaN(t.h)?100:t.h;
+            self.css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white"});
+    		self.addClass(".slmignore");
+        }
+    }[t.mode];
+	
+	
     //ricerca funzione
+	var c;
     var fl={
         boxV:function()
         {
-            var c,r,i,o;
-            self.css("overflow","auto");
-            c = self.children();
+            var r,i,o;
             r=self.innerHeight();
             var ta=[];
             var tp=0;
@@ -71,9 +82,7 @@ $.fn.slm=function()
         },
         boxH:function()
         {
-            var c,r,i,o;
-            self.css("overflow","auto");
-            c = self.children();
+            var r,i,o;
             r=self.innerWidth();
             var ta=[];
             var tp=0;
@@ -106,12 +115,11 @@ $.fn.slm=function()
         },
         tab:function()
         {
-            var c,r,i,o;
-            c = self.children().not(".tabheader");
+            var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
             if (!self.children(".tabheader").length)
-                $("<div/>").css({"position":"absolute","left":0,"top":0,"right":0,"overflow":"hidden"}).prependTo(self).addClass("tabheader");
+                $("<div/>",{"class":"slmignore tabheader"}).css({"position":"absolute","left":0,"top":0,"right":0,"overflow":"hidden"}).prependTo(self);
             var header=self.children("div.tabheader").empty();
             for (i=0;i<c.size();i++)
             {
@@ -128,7 +136,7 @@ $.fn.slm=function()
             for (i=0;i<c.size();i++)
             {
                 var cc=$(c[i]);
-                cc.css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0,"overflow":"auto"});
+                cc.css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0});
                 cc.hide();
             }
             $(c[t.sel]).show();
@@ -137,8 +145,7 @@ $.fn.slm=function()
         },
         accordion:function()
         {
-            var c,r,i,o;
-            c = self.children().not(".accheader");
+            var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header accordion
             self.children(".accheader").remove();
@@ -148,7 +155,7 @@ $.fn.slm=function()
                 var cc=$(c[i]);
 				var pt=getT(cc);
 				pt.title=(pt.title==undefined)?"acc "+i:pt.title;
-                var s=$("<div/>").addClass("accheader").text(pt.title).insertBefore(cc).toggleClass("selected",i==t.sel);
+                var s=$("<div/>",{"class":"slmignore accheader"}).text(pt.title).insertBefore(cc).toggleClass("selected",i==t.sel);
 				s.click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
                 r-=s.outerHeight();
             }
@@ -160,14 +167,13 @@ $.fn.slm=function()
         },
 		shift:function()
         {
-            var c,r,i,o;
-            c = self.children().not(".shift");
+            var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
             if (!self.children(".shift").length)
 			{
-				var sn=$("<span/>").text("NEXT").css({"position":"absolute","right":0,"top":0,"overflow":"hidden"}).prependTo(self).addClass("shift");
-				var sp=$("<span/>").text("PREV").css({"position":"absolute","left":0,"top":0,"overflow":"hidden"}).prependTo(self).addClass("shift");
+				var sn=$("<span/>",{"class":"slmignore shift"}).text("NEXT").css({"position":"absolute","right":0,"top":0,"overflow":"hidden"}).prependTo(self);
+				var sp=$("<span/>",{"class":"slmignore shift"}).text("PREV").css({"position":"absolute","left":0,"top":0,"overflow":"hidden"}).prependTo(self);
 				sp.click(function(){t.sel=(t.sel+c.size()-1)%c.size();setT(self,t);self.slm();});
 				sn.click(function(){t.sel=(t.sel+c.size()+1)%c.size();setT(self,t);self.slm();});
 			}
@@ -175,7 +181,7 @@ $.fn.slm=function()
             for (i=0;i<c.size();i++)
             {
 				var cc=$(c[i]);
-                cc.css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0,"overflow":"auto"});
+                cc.css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0});
                 cc.hide();
             }
             $(c[t.sel]).show();
@@ -183,21 +189,18 @@ $.fn.slm=function()
         },
 		splitV:function()
         {
-            var c,r,i,o;
-            self.css("overflow","hidden");
-            c = self.children().not(".splitter");
-            r=self.innerHeight();
+            var i,o;
 			t.sash=isNaN(t.sash)?self.height()/2:t.sash;
 			setT(self,t);
             //creazione splitter
             if (!self.children(".splitter").length)
             {
-                var spl=$("<div/>").css({"position":"absolute","left":0,"right":0,"height":5,"overflow":"hidden","cursor":"row-resize"}).prependTo(self).addClass("splitter");
+                var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","left":0,"right":0,"height":5,"overflow":"hidden","cursor":"row-resize"}).prependTo(self);
                 var drag=-1;
 			    spl.mousedown(function(e){ drag=e.pageY-t.sash;});
 			    spl.mouseup(function(e){ drag=-1;});
 				self.mouseup(function(e){ drag=-1;});
-			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();}});
+			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
             }			
             var p0=$(c[0]);
 			var p1=$(c[1]);
@@ -210,21 +213,18 @@ $.fn.slm=function()
         },
 		splitH:function()
         {
-            var c,r,i,o;
-            self.css("overflow","hidden");
-            c = self.children().not(".splitter");
-            r=self.innerHeight();
+            var i,o;
 			t.sash=isNaN(t.sash)?self.width()/2:t.sash;
 			setT(self,t);
             //creazione splitter
             if (!self.children(".splitter").length)
             {
-                var spl=$("<div/>").css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self).addClass("splitter");
+                var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self);
                 var drag=-1;
 			    spl.mousedown(function(e){ drag=e.pageX-t.sash;});
 			    spl.mouseup(function(e){ drag=-1;});
 				self.mouseup(function(e){ drag=-1;});
-			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();}});
+			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
             }			
             var p0=$(c[0]);
 			var p1=$(c[1]);
@@ -240,13 +240,22 @@ $.fn.slm=function()
 
 	var propagate=function()
 	{
-		if (fl)
-			fl();
-			
+	
 		if (self.css("position")=="static")
 			self.css("position","relative");
 
-		self.children().each($.fn.slm);
+        if (mode)
+            mode();
+	
+		if (fl)
+		{
+			self.css("overflow","hidden");
+			c = self.children(":not(.slmignore)").css({height:"",width:""});
+			fl();
+			self.children().each($.fn.slm);
+		}
+		
+
 	};
 	
 	propagate();
