@@ -34,13 +34,17 @@ body, button
 <script type="text/javascript">
 
 $(function(){
-    $("#A").slm();
+    $("#root").slm();
 
 
-    $("button#toggledialog").click(function(){
-        $("#A").attr("layout","mode:'dialog',sz:'boxV',w:400,h:400").slm();
+    $("button#showDialog").click(function(){
+        $("#root").attr("layout","sz:'dialog',w:400,h:400").slm();
     });
 
+    $("button#showFullpage").click(function(){
+        $("#root").attr("layout","sz:'fullpage',w:400,h:400").slm();
+    });
+    
 });
 
 </script>
@@ -48,102 +52,104 @@ $(function(){
 <body>
 
 
-<div id="A" layout="mode:'allpage',sz:'boxV'" class="col-yellow;">
-    <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
-    <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
-        <div layout="sz:'boxH',title:'LEFT sidebar'">
-			<span layout="w:200,ex:1" class="col-purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>
-			<div layout="p:1,ex:1,sz:'tab'">
-				<div class="col-red">I'm the nested tab 0</div>
-				<div class="col-green">I'm the nested tab 1</div>
-				<div class="col-blue">I'm the nested tab 2</div>
-			</div>
-		</div>
-        <div layout="sz:'boxH',title:'RIGHT sidebar'">
-			<div layout="p:1,ex:1,sz:'tab'">
-				<div class="col-cyan">I'm the nested tab 0</div>
-				<div class="col-magenta">I'm the nested tab 1</div>
-				<div class="col-orange">I'm the nested tab 2</div>
-			</div>
-			<span layout="w:200,ex:1" class="col-purple">The same as before but I'm a sidebar on the right instead, checkout my code in order to see how much simple is to create me</span>
-		</div>
-        <div layout="sz:'boxV',title:'TOP sidebar'">
-			<span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested header, a top bar. My height will remain constant.</span>
-			<div layout="p:1,ex:1,sz:'tab'">
-				<div class="col-red">I'm the nested tab 0</div>
-				<div class="col-green">I'm the nested tab 1</div>
-				<div class="col-blue">I'm the nested tab 2</div>
-			</div>
-		</div>
-        <div layout="sz:'boxV',title:'BOTTOM sidebar'">
-			<div layout="p:1,ex:1,sz:'tab'">
-				<div class="col-cyan">I'm the nested tab 0</div>
-				<div class="col-magenta">I'm the nested tab 1</div>
-				<div class="col-orange">I'm the nested tab 2</div>
-			</div>
-			<span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested footer, a bottom bar</span>
-		</div>
-		<div layout="sz:'splitV',sash:100,title:'V split'">
-			<span id="llll" class="col-purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
-			<div layout="ex:1,sz:'tab'">
-				<div class="col-cyan">I'm the nested tab 0</div>
-				<div class="col-magenta">I'm the nested tab 1</div>
-				<div class="col-orange">I'm the nested tab 2</div>
-			</div>
-		</div>
-        <div layout="sz:'splitH',sash:200,title:'H split'">
-			<span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
-			<div layout="ex:1,sz:'tab'">
-				<div class="col-cyan">I'm the nested tab 0</div>
-				<div class="col-magenta">I'm the nested tab 1</div>
-				<div class="col-orange">I'm the nested tab 2</div>
-			</div>
-		</div>
-		<div layout="sz:'splitV',sash:100,title:'NESTED Vsplit/Hsplit'">
-			<div class="col-cyan">split ...</div>
-			<div layout="ex:1,sz:'splitH',sash:100">
-				<div class="col-magenta">and split ...</div>
-				<div layout="ex:1,sz:'splitV',sash:100">
-					<div class="col-yellow">and split again ...</div>
-					<div layout="ex:1,sz:'splitH',sash:100">
-						<div class="col-orange">we are a set of nested splitters .. an example about how much powerful is slm.js .. </div>
-						<div class="col-purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div layout="ex:1,sz:'shift',title:'SHIFT'">
-			<div class="col-cyan">The shift sizer allows you to rotate throught the children, I'm the first</div>
-			<div class="col-magenta">I'm the second</div>
-			<div class="col-orange">I'm the third</div>
-			<div layout="ex:1,sz:'splitH',sash:200">
-					<div class="col-orange">Hey, I'm the fourth, but I'm in a nested splitter and my brother is on the right</div>
-					<div class="col-purple">I'm the brother</div>
-			</div>
-		</div>
-        <div layout="ex:1,sz:'splitH',sash:200,title:'ACCORDION'">
-			<div layout="p:1,ex:1,sz:'accordion'" class="col-white">
-       			<div class="col-cyan">First part</div>
-	            <div class="col-magenta">Second part</div>
-	            <div class="col-orange">third part</div>
-	            <div class="col-purple">fourth part</div>
+<div id="root" layout="sz:'fullpage',w:400,h:400">
+    <div id="A" layout="sz:'boxV'" class="col-yellow;">
+        <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
+        <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
+            <div layout="sz:'boxH',title:'LEFT sidebar'">
+                <span layout="w:200,ex:1" class="col-purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>
+                <div layout="p:1,ex:1,sz:'tab'">
+                    <div class="col-red">I'm the nested tab 0</div>
+                    <div class="col-green">I'm the nested tab 1</div>
+                    <div class="col-blue">I'm the nested tab 2</div>
+                </div>
             </div>
-			<div class="col-purple">Look on the left , there is an accordion</div>
-		</div>
-    </div>
-    <div layout="sz:'boxH',ex:1,h:80">
-        <div layout="p:1,ex:1,sz:'tab'">
-		    <div class="col-magenta">First tab on the footer</div>    
-		    <div class="col-red">Second tab on the footer</div>
-		    <div class="col-green">Third tab on the footer</div>
-		    <div class="col-blue">Fourth tab on the footer</div>
-	    </div>
-        <div layout="sz:'boxV',w:150,ex:1" class="col-yellow">
-            <button id="AC" layout="ex:1" >Button that extends</button>
-        	<button id="toggledialog" >Turn dialog on</button>
-	    </div>
+            <div layout="sz:'boxH',title:'RIGHT sidebar'">
+                <div layout="p:1,ex:1,sz:'tab'">
+                    <div class="col-cyan">I'm the nested tab 0</div>
+                    <div class="col-magenta">I'm the nested tab 1</div>
+                    <div class="col-orange">I'm the nested tab 2</div>
+                </div>
+                <span layout="w:200,ex:1" class="col-purple">The same as before but I'm a sidebar on the right instead, checkout my code in order to see how much simple is to create me</span>
+            </div>
+            <div layout="sz:'boxV',title:'TOP sidebar'">
+                <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested header, a top bar. My height will remain constant.</span>
+                <div layout="p:1,ex:1,sz:'tab'">
+                    <div class="col-red">I'm the nested tab 0</div>
+                    <div class="col-green">I'm the nested tab 1</div>
+                    <div class="col-blue">I'm the nested tab 2</div>
+                </div>
+            </div>
+            <div layout="sz:'boxV',title:'BOTTOM sidebar'">
+                <div layout="p:1,ex:1,sz:'tab'">
+                    <div class="col-cyan">I'm the nested tab 0</div>
+                    <div class="col-magenta">I'm the nested tab 1</div>
+                    <div class="col-orange">I'm the nested tab 2</div>
+                </div>
+                <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested footer, a bottom bar</span>
+            </div>
+            <div layout="sz:'splitV',sash:100,title:'V split'">
+                <span id="llll" class="col-purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
+                <div layout="ex:1,sz:'tab'">
+                    <div class="col-cyan">I'm the nested tab 0</div>
+                    <div class="col-magenta">I'm the nested tab 1</div>
+                    <div class="col-orange">I'm the nested tab 2</div>
+                </div>
+            </div>
+            <div layout="sz:'splitH',sash:200,title:'H split'">
+                <span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
+                <div layout="ex:1,sz:'tab'">
+                    <div class="col-cyan">I'm the nested tab 0</div>
+                    <div class="col-magenta">I'm the nested tab 1</div>
+                    <div class="col-orange">I'm the nested tab 2</div>
+                </div>
+            </div>
+            <div layout="sz:'splitV',sash:100,title:'NESTED Vsplit/Hsplit'">
+                <div class="col-cyan">split ...</div>
+                <div layout="ex:1,sz:'splitH',sash:100">
+                    <div class="col-magenta">and split ...</div>
+                    <div layout="ex:1,sz:'splitV',sash:100">
+                        <div class="col-yellow">and split again ...</div>
+                        <div layout="ex:1,sz:'splitH',sash:100">
+                            <div class="col-orange">we are a set of nested splitters .. an example about how much powerful is slm.js .. </div>
+                            <div class="col-purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div layout="ex:1,sz:'shift',title:'SHIFT'">
+                <div class="col-cyan">The shift sizer allows you to rotate throught the children, I'm the first</div>
+                <div class="col-magenta">I'm the second</div>
+                <div class="col-orange">I'm the third</div>
+                <div layout="ex:1,sz:'splitH',sash:200">
+                        <div class="col-orange">Hey, I'm the fourth, but I'm in a nested splitter and my brother is on the right</div>
+                        <div class="col-purple">I'm the brother</div>
+                </div>
+            </div>
+            <div layout="ex:1,sz:'splitH',sash:200,title:'ACCORDION'">
+                <div layout="p:1,ex:1,sz:'accordion'" class="col-white">
+                    <div class="col-cyan">First part</div>
+                    <div class="col-magenta">Second part</div>
+                    <div class="col-orange">third part</div>
+                    <div class="col-purple">fourth part</div>
+                </div>
+                <div class="col-purple">Look on the left , there is an accordion</div>
+            </div>
+        </div>
+        <div layout="sz:'boxH',ex:1,h:80">
+            <div layout="p:1,ex:1,sz:'tab'">
+                <div class="col-magenta">First tab on the footer</div>    
+                <div class="col-red">Second tab on the footer</div>
+                <div class="col-green">Third tab on the footer</div>
+                <div class="col-blue">Fourth tab on the footer</div>
+            </div>
+            <div layout="sz:'boxV',w:150,ex:1" class="col-yellow">
+                <button id="AC" layout="p:1,ex:1" >Button that extends</button>
+                <button id="showDialog" >in a dialog</button>
+                <button id="showFullpage" >on Full Page</button>
+            </div>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
