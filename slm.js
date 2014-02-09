@@ -24,13 +24,21 @@ $.fn.slm=function(layout)
     var t=getT(self);
 
     
-    var mode={
-        allpage:function()
+	
+    //ricerca funzione
+	var c;
+    var fl={
+        fullpage:function()
         {
             if (!t.ok)
             {
-                self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0);
+                console.log("CIAO");
+                //vincolail contenitore alla finestra e aggancia gli eventi di resize
+                self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0).css("width","").css("height","");
                 $(window).on("resize",function(){propagate();});
+                //figli: il dialog accetta un solo figlio e lo massimizza
+                c.hide();
+                $(c[0]).css("position","absolute").css("left",0).css("top",0).css("right",0).css("bottom",0).show();
                 t.ok=1;
                 setT(self,t);
             }
@@ -44,30 +52,24 @@ $.fn.slm=function(layout)
                 t.y=isNaN(t.y)?100:t.y;
                 t.w=isNaN(t.w)?100:t.w;
                 t.h=isNaN(t.h)?100:t.h;
-                var dlg=$("<div/>",{"class":"slmdialog"}).css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
-                self.wrap(dlg);
-                dlg=self.parent();
-                var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(dlg);
-                self.css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0);
+                self.addClass("slmdialog").css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
+                //barra del dialog
+                var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(self);
+                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red"}).appendTo(hdlg).text("X").click(function(){self.remove();});
                 //gestione chiusura
                 var hh=hdlg.innerHeight();
-                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red"}).appendTo(hdlg).text("X").click(function(){dlg.remove();});
-
                 //gestione spostamento
                 var drag;
 		        hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
 			    $(document).mouseup(function(e){ drag=null;});
-		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];dlg.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
+		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];self.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
                 t.ok=1;
                 setT(self,t);
+                //figli: il dialog accetta un solo figlio e lo massimizza
+                c.hide();
+                $(c[0]).css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0).show();
             }
-        }
-    }[t.mode];
-	
-	
-    //ricerca funzione
-	var c;
-    var fl={
+        },
         boxV:function()
         {
             var r,i,o;
@@ -265,9 +267,6 @@ $.fn.slm=function(layout)
         }
     }[t.sz];
 
-
-        if (mode)
-            mode();
 
 	var propagate=function()
 	{
