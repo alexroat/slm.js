@@ -34,11 +34,11 @@ $.fn.slm=function(layout)
             {
                 console.log("CIAO");
                 //vincolail contenitore alla finestra e aggancia gli eventi di resize
-                self.css("position","fixed").css("left",0).css("top",0).css("right",0).css("bottom",0).css("width","").css("height","");
+                self.css({"position":"fixed","left":0,"top":0,"right":0,"bottom":0,"width":"","height":""});
                 $(window).on("resize",function(){propagate();});
                 //figli: il dialog accetta un solo figlio e lo massimizza
                 c.hide();
-                $(c[0]).css("position","absolute").css("left",0).css("top",0).css("right",0).css("bottom",0).show();
+                $(c[0]).css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0}).show();
                 t.ok=1;
                 setT(self,t);
             }
@@ -54,7 +54,7 @@ $.fn.slm=function(layout)
                 t.h=isNaN(t.h)?100:t.h;
                 self.addClass("slmdialog").css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
                 //barra del dialog
-                var hdlg=$("<div/>",{"class":"slmignore"}).css("left",0).css("top",0).css("right",0).text("dialog").prependTo(self);
+                var hdlg=$("<div/>",{"class":"slmignore"}).css({"left":0,"top":0,"right":0}).text("dialog").prependTo(self);
                 $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red"}).appendTo(hdlg).text("X").click(function(){self.remove();});
                 //gestione chiusura
                 var hh=hdlg.innerHeight();
@@ -67,7 +67,7 @@ $.fn.slm=function(layout)
                 setT(self,t);
                 //figli: il dialog accetta un solo figlio e lo massimizza
                 c.hide();
-                $(c[0]).css("position","absolute").css("left",0).css("top",hdlg.outerHeight()).css("right",0).css("bottom",0).show();
+                $(c[0]).css({"position":"absolute","left":0,"top":hdlg.outerHeight(),"right":0,"bottom":0}).show();
             }
         },
         boxV:function()
