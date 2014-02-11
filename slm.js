@@ -23,7 +23,18 @@ $.fn.slm=function(layout)
 
     var t=getT(self);
 
-    
+    //gestione resize
+	var rsz = function(target)
+	{
+		var edge=[false,false,false,false];
+		var d;
+		var fmousemove=function(e){  };
+		var fmouseup=function(e){  };
+		var fmousedown=function(e){   };
+		target.bind("mousedown",fmousedown);
+	
+	}
+	
 	
     //ricerca funzione
 	var c;
@@ -32,10 +43,9 @@ $.fn.slm=function(layout)
         {
             if (!t.ok)
             {
-                console.log("CIAO");
                 //vincolail contenitore alla finestra e aggancia gli eventi di resize
                 self.css({"position":"fixed","left":0,"top":0,"right":0,"bottom":0,"width":"","height":""});
-                $(window).on("resize",function(){propagate();});
+                $(window).on("resize",propagate);
                 //figli: il dialog accetta un solo figlio e lo massimizza
                 c.hide();
                 $(c[0]).css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0}).show();
@@ -45,29 +55,29 @@ $.fn.slm=function(layout)
         },
         dialog:function()
         {
+			t.x=isNaN(t.x)?100:t.x;
+			t.y=isNaN(t.y)?100:t.y;
+			t.w=isNaN(t.w)?100:t.w;
+			t.h=isNaN(t.h)?100:t.h;
+			self.addClass("slmdialog").css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
             if (!t.ok)
             {
+				//barra del dialog
                 var m=10;
-                t.x=isNaN(t.x)?100:t.x;
-                t.y=isNaN(t.y)?100:t.y;
-                t.w=isNaN(t.w)?100:t.w;
-                t.h=isNaN(t.h)?100:t.h;
-                self.addClass("slmdialog").css({"position":"fixed","top":t.y,"left":t.x,"width":t.w,"height":t.h,"background":"white", "border":"2px solid grey"});
-                //barra del dialog
                 var hdlg=$("<div/>",{"class":"slmignore"}).css({"left":0,"top":0,"right":0}).text("dialog").prependTo(self);
-                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red"}).appendTo(hdlg).text("X").click(function(){self.remove();});
-                //gestione chiusura
-                var hh=hdlg.innerHeight();
+				//gestione chiusura
+				var hh=hdlg.innerHeight();
+                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red","text-align":"center","cursor":"default"}).appendTo(hdlg).text("×").click(function(){self.remove();});
                 //gestione spostamento
                 var drag;
 		        hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
 			    $(document).mouseup(function(e){ drag=null;});
 		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];self.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
-                t.ok=1;
-                setT(self,t);
                 //figli: il dialog accetta un solo figlio e lo massimizza
                 c.hide();
                 $(c[0]).css({"position":"absolute","left":0,"top":hdlg.outerHeight(),"right":0,"bottom":0}).show();
+				t.ok=1;
+                setT(self,t);
             }
         },
         boxV:function()
@@ -180,7 +190,6 @@ $.fn.slm=function(layout)
                     var s=$("<div/>",{"class":"slmignore accheader"})
                     .text(ct.title)
                     .insertBefore(cc)
-                    .toggleClass("selected",i==t.sel)
 				    .click((function(j){return function(){t.sel=j;setT(self,t);self.slm();}})(i));
                 }
                 t.ok=1;
@@ -190,7 +199,7 @@ $.fn.slm=function(layout)
             var ac=self.children(".accheader");
             var r=self.innerHeight();
             for (i=0;i<ac.size();i++)
-                r-=$(ac[i]).outerHeight();
+                r-=$(ac[i]).toggleClass("selected",i==t.sel).outerHeight();
             //adattamento children
             c.hide();
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
@@ -209,10 +218,10 @@ $.fn.slm=function(layout)
 				var sp=$("<span/>",{"class":"slmignore shift"}).text("PREV").css({"position":"absolute","left":0,"top":0,"overflow":"hidden"}).prependTo(self);
 				sp.click(function(){t.sel=(t.sel+c.size()-1)%c.size();setT(self,t);self.slm();});
 				sn.click(function(){t.sel=(t.sel+c.size()+1)%c.size();setT(self,t);self.slm();});
-                self.children(".shift").css("top",self.innerHeight()/2);                
                 t.ok=1;
                 setT(self,t);
 			}
+			self.children(".shift").css("top",self.innerHeight()/2);                
 			//attivazione figlio selezionato
             c.hide();
             $(c[t.sel]).css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0}).show();
