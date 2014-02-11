@@ -23,17 +23,56 @@ $.fn.slm=function(layout)
 
     var t=getT(self);
 
-    //gestione resize
+    //crea gestione resize su target
 	var rsz = function(target)
 	{
-		var edge=[false,false,false,false];
 		var d;
-		var fmousemove=function(e){  };
-		var fmouseup=function(e){  };
-		var fmousedown=function(e){   };
+		var fmousemove=function(e){
+			var t=getT(target);
+			var dx=e.pageX-d.ex;
+			var dy=e.pageY-d.ey;
+			if (d.edge.right)
+				t.w=d.w+dx;
+			if (d.edge.bottom)
+				t.h=d.h+dy;
+			if (d.edge.left)
+			{
+				t.w=d.w-dx;
+				t.x=d.x+dx;
+			}
+			if (d.edge.top)
+			{
+				t.h=d.h-dy;
+				t.y=d.y+dy;
+			}
+			setT(target,t);
+			target.slm();
+			window.event.returnValue = false;
+		};
+		var fmouseup=function(e){
+			$(document).unbind("mouseup",fmouseup);
+			$(document).unbind("mousemove",fmousemove);
+		};
+		var fmousedown=function(e){
+			//calcolo edge resize
+			var x = e.pageX - target[0].offsetLeft;
+			var y = e.pageY - target[0].offsetTop;
+			var w = target.outerWidth();
+			var h = target.outerHeight();
+			var q=4;
+			var l={left:x<q,top:y<q,right:w-x<q,bottom:h-y<q};
+			if (l.left||l.top||l.right||l.bottom)
+			{
+				d=getT(target);
+				d.ex=e.pageX;
+				d.ey=e.pageY;
+				d.edge=l;
+				$(document).bind("mousemove",fmousemove);
+				$(document).bind("mouseup",fmouseup);
+			}
+		};
 		target.bind("mousedown",fmousedown);
-	
-	}
+	};
 	
 	
     //ricerca funzione
@@ -78,6 +117,7 @@ $.fn.slm=function(layout)
                 $(c[0]).css({"position":"absolute","left":0,"top":hdlg.outerHeight(),"right":0,"bottom":0}).show();
 				t.ok=1;
                 setT(self,t);
+				rsz(self);//crea gestione resize
             }
         },
         boxV:function()
