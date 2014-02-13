@@ -107,7 +107,7 @@ $.fn.slm=function(layout)
                 var hdlg=$("<div/>",{"class":"slmignore"}).css({"left":0,"top":0,"right":0}).text("dialog").prependTo(self);
 				//gestione chiusura
 				var hh=hdlg.innerHeight();
-                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red","text-align":"center","cursor":"default"}).appendTo(hdlg).text("×").click(function(){self.remove();});
+                $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"rgb(230, 102, 102)","text-align":"center","cursor":"default"}).appendTo(hdlg).text("×").click(function(){self.remove();});
                 //gestione spostamento
                 var drag;
 		        hdlg.mousedown(function(e){ t=getT(self);drag=[e.pageX-t.x,e.pageY-t.y];});
