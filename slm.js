@@ -22,7 +22,8 @@ $.fn.slm=function(layout)
     }
 
     var t=getT(self);
-
+	
+	
     //crea gestione resize su target
 	var rsz = function(target)
 	{
@@ -109,9 +110,9 @@ $.fn.slm=function(layout)
                 $("<div/>").css({"position":"absolute","right":0,"top":0,"width":hh,"height":hh,"background":"red","text-align":"center","cursor":"default"}).appendTo(hdlg).text("×").click(function(){self.remove();});
                 //gestione spostamento
                 var drag;
-		        hdlg.mousedown(function(e){ drag=[e.pageX-t.x,e.pageY-t.y];});
+		        hdlg.mousedown(function(e){ t=getT(self);drag=[e.pageX-t.x,e.pageY-t.y];});
 			    $(document).mouseup(function(e){ drag=null;});
-		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];self.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
+		        $(document).mousemove(function(e){if(drag){t.x=e.pageX-drag[0];t.y=e.pageY-drag[1];setT(self,t);self.css("left",t.x).css("top",t.y);window.event.returnValue = false;}});
                 //figli: il dialog accetta un solo figlio e lo massimizza
                 c.hide();
                 $(c[0]).css({"position":"absolute","left":0,"top":hdlg.outerHeight(),"right":0,"bottom":0}).show();
@@ -301,7 +302,7 @@ $.fn.slm=function(layout)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self);
                 var drag=-1;
-			    spl.mousedown(function(e){ drag=e.pageX-t.sash;});
+			    spl.mousedown(function(e){ t=getT(self);drag=e.pageX-t.sash;});
 				self.mouseup(function(e){ drag=-1;});
 			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
                 t.ok=1;
@@ -336,7 +337,13 @@ $.fn.slm=function(layout)
 
 	};
 	
-	propagate();
+	//propagate();//propagate event to the children
+	//Alternative trick for performance: 	if not already scheduled, schedule the propagation when idle, otherwise skip
+	if (!self[0].__pro)
+	{
+		self[0].__pro=1;
+		setTimeout(function(){propagate();delete self[0].__pro;},0);
+	}
 	
 
     return this;
