@@ -20,8 +20,14 @@
 
 $(function(){
     $("#root").slm();
+    $("#root2").slm();
 });
 </script>
+<style>
+.tabheader { background-color:white; border-bottom:1px solid black}
+.tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;}
+.tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}
+</style>
 
     <title>Slm.js by alexroat</title>
   </head>
@@ -51,41 +57,75 @@ complex combinations of css classes.</p>
 
 <p> Look below and drag the splitters with the mouse ... that's only a taste! </p>
 <div id="root" layout="sz:'splitV',sash:100" style="width:100%;height:300px">
-	<div style="background:cyan">Cyan</div>
-	<div layout="ex:1,sz:'splitH',sash:100">
-		<div style="background:magenta">Magenta</div>
-		<div layout="ex:1,sz:'splitV',sash:100">
-			<div style="background:yellow">Yellow</div>
-			<div layout="ex:1,sz:'splitH',sash:100">
-				<div style="background:orange">Orange</div>
-				<div style="background:lightgreen">Green</div>
-			</div>
-		</div>
-	</div>
+    <div style="background:cyan">Cyan</div>
+    <div layout="ex:1,sz:'splitH',sash:100">
+        <div style="background:magenta">Magenta</div>
+        <div layout="ex:1,sz:'splitV',sash:100">
+            <div style="background:yellow">Yellow</div>
+            <div layout="ex:1,sz:'splitH',sash:100">
+                <div style="background:orange">Orange</div>
+                <div style="background:lightgreen">Green</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 
 <p> Cool! But the amazing part is the source code that you need in order to obtain this.</p>
-<pre>
-&lt;div id="root" layout="sz:'splitV',sash:100" style="width:100%;height:300px"&gt;
-    &lt;div style="background:cyan"&gt;Cyan&lt;/div&gt;
-    &lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
-        &lt;div style="background:magenta"&gt;Magenta&lt;/div&gt;
-        &lt;div layout="ex:1,sz:'splitV',sash:100"&gt;
-            &lt;div style="background:yellow"&gt;Yellow&lt;/div&gt;
-            &lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
-                &lt;div style="background:orange"&gt;Orange &lt;/div&gt;
-                &lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</pre>
+<pre><code>&lt;div id="root" layout="sz:'splitV',sash:100" style="width:100%;height:300px"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:cyan"&gt;Cyan&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:magenta"&gt;Magenta&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="ex:1,sz:'splitV',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:yellow"&gt;Yellow&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="ex:1,sz:'splitH',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:orange"&gt;Orange&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<p> ... and now try the tabs ... with nested splitters! </p>
+<div id="root2" layout="sz:'tab',ex:1" style="width:100%;height:300px">
+    <div layout="title:'First',ex:1,sz:'splitH',sash:100">
+        <div style="background:orange">Orange</div>
+        <div style="background:lightgreen">Green</div>
+    </div>
+    <div layout="title:'Second',ex:1,sz:'splitV',sash:100">
+        <div style="background:orange">Orange</div>
+        <div style="background:lightgreen">Green</div>
+    </div>
+    <div layout="title:'Third',ex:1,sz:'splitH',sash:200">
+        <div style="background:yellow">Yellow</div>
+        <div layout="title:'First',ex:1,sz:'splitV',sash:100">
+            <div style="background:orange">Orange</div>
+        <div style="background:lightgreen">Green</div>
+        </div>
+    </div>
+</div>
+<p> Here's the code ...</p>
+<pre><code>&lt;div id="root2" layout="sz:'tab',ex:1" style="width:100%;height:300px"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="title:'First',ex:1,sz:'splitH',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:orange"&gt;Orange&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="title:'Second',ex:1,sz:'splitV',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:orange"&gt;Orange&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="title:'Third',ex:1,sz:'splitH',sash:200"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:yellow"&gt;Yellow&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div layout="title:'First',ex:1,sz:'splitV',sash:100"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:orange"&gt;Orange&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div style="background:lightgreen"&gt;Green&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 
 
-
-<p>Try the <a href="demo.html">DEMO</a> and check the source code to see how much simple and obvious is it.</p>
+<p>Are you intrested in? Try the <a href="demo.html">DEMO</a> and check the source code to see how much simple and obvious is it.</p>
           
         </section>
 
