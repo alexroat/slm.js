@@ -320,6 +320,25 @@ $.fn.slm=function(layout)
             var i,o;
 			t.snap=isNaN(t.snap)?32:t.snap;
 			setT(self,t);
+            var w=self.width();
+            var ox=t.snap;
+            var oy=t.snap;
+            var maxch=0;
+            for (i=0;i<c.size();i++)
+            {
+                var cc=$(c[i]);
+			    var ct=getT(cc);
+			    var cw=(isNaN(ct.sx)?1:ct.sx)*t.snap;
+                var ch=(isNaN(ct.sy)?1:ct.sy)*t.snap;
+                maxch=ch>maxch?ch:maxch;//stride
+                cc.css({top:oy,left:ox,width:cw,height:ch,position:'absolute'});                
+                ox+=cw+t.snap;
+                if (ox>w)
+                {
+                    ox=t.snap;
+                    oy+=maxch+t.snap;
+                }
+            }
         }
     }[t.sz];
 
