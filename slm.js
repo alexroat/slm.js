@@ -324,20 +324,24 @@ $.fn.slm=function(layout)
             var ox=t.snap;
             var oy=t.snap;
             var maxch=0;
+			var rowcnt=0;
             for (i=0;i<c.size();i++)
             {
                 var cc=$(c[i]);
 			    var ct=getT(cc);
 			    var cw=(isNaN(ct.sx)?1:ct.sx)*t.snap;
                 var ch=(isNaN(ct.sy)?1:ct.sy)*t.snap;
-                maxch=ch>maxch?ch:maxch;//stride
-                cc.css({top:oy,left:ox,width:cw,height:ch,position:'absolute'});                
-                ox+=cw+t.snap;
-                if (ox>w)
+                if (ox+cw>w && rowcnt>0)
                 {
                     ox=t.snap;
                     oy+=maxch+t.snap;
+					maxch=0;
                 }
+				cc.css({top:oy,left:ox,width:cw,height:ch,position:'absolute'});            
+				rowcnt++;
+				ox+=cw+t.snap;
+				maxch=ch>maxch?ch:maxch;//stride
+                
             }
         }
     }[t.sz];
@@ -356,7 +360,8 @@ $.fn.slm=function(layout)
 			self.css("overflow","hidden");
 			c = self.children(":not(.slmignore)").css({height:"",width:""});
 			fl();
-			self.children().each($.fn.slm);
+			//propaga solo ai children visibili
+			c.filter(":visible").each($.fn.slm);
 		}
 		
 
@@ -373,4 +378,5 @@ $.fn.slm=function(layout)
 
     return this;
 };
+
 

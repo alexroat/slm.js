@@ -1,3 +1,8 @@
+
+
+
+
+
 		
 <!DOCTYPE HTML>
 <html>
@@ -20,7 +25,11 @@
 .col-cyan{background-color:rgb(208, 236, 236)}
 .col-purple{background-color:rgb(177, 166, 199)}
 .col-violet{background-color:violet}
-.col-orange{background-color:orange}
+.col-orange{background-color: orange;}
+.snap>div{background-color: orange;
+text-align: center;
+font-size: 30px;
+color: whitesmoke;}
 
 body, button
 {
@@ -138,34 +147,37 @@ $(function(){
             </div>
             <div layout="ex:1,sz:'splitH',sash:200,title:'SNAP'">
                 <div class="col-purple"></div>
-                <div layout="p:1,ex:1,sz:'snap'" class="col-white">
-                    <div layout="sx:3,sy:2" class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:1" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:3,sy:2" class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:1" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:3,sy:2" class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:2,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:1" class="col-orange"></div>
-                    <div class="col-orange"></div>
-                    <div layout="sx:4,sy:2" class="col-orange"></div>
-                    <div class="col-orange"></div>
+                <div layout="p:1,ex:1,sz:'snap'" class="col-white snap">
+                    <div layout="sx:3,sy:2">A</div>
+                    <div layout="sx:2,sy:2">B</div>
+                    <div>C</div>
+                    <div layout="sx:2,sy:2">D</div>
+                    <div>E</div>
+                    <div layout="sx:4,sy:1">F</div>
+                    <div>G</div>
+                    <div layout="sx:4,sy:2">H</div>
+                    <div>I</div>
+                    <div layout="sx:3,sy:2">J</div>
+                    <div layout="sx:2,sy:2">K</div>
+                    <div>L</div>
+                    <div layout="sx:2,sy:2">M</div>
+                    <div>N</div>
+                    <div layout="sx:4,sy:1">O</div>
+                    <div>P</div>
+                    <div layout="sx:4,sy:2">Q</div>
+                    <div>R</div>
+                    <div layout="sx:3,sy:2">S</div>
+                    <div layout="sx:2,sy:2">T</div>
+                    <div>U</div>
+                    <div layout="sx:2,sy:2">V</div>
+                    <div>W</div>
+                    <div layout="sx:4,sy:1">X</div>
+                    <div>Y</div>
+                    <div layout="sx:4,sy:2">Z</div>
+					<div layout="sx:4,sy:4,ex:1,sz:'splitH',sash:30">
+                        <div class="col-red">split</div>
+                        <div class="col-purple">split</div>
+					</div>
                 </div>
             </div>
         </div>
@@ -186,3 +198,6 @@ $(function(){
 </div>
 </body>
 </html>
+
+
+
