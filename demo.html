@@ -3,16 +3,6 @@
 <head>
 <meta charset="utf-8">
 <style>
-.tabheader { background-color:white; border-bottom:1px solid black}
-.tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;}
-.tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}
-.splitter {background-color: gray;}
-.shift {z-index:1000;background-color:black;color:white;}
-.accheader{background-color:lightgrey;border:1px solid grey;}
-.accheader.selected{ background-color:grey;color: white;}
-
-.slmignore{font-family: sans-serif; font-size: medium; text-align: left;}
-
 .col-green{background-color:rgb(202, 230, 202)}
 .col-yellow{background-color:lightyellow}
 .col-red{background-color:rgb(230, 157, 131);}
@@ -40,7 +30,7 @@ body, button
 <script type="text/javascript">
 
 $(function(){
-    $("#root").slm();
+    $("#root").slm("installCSS");
 
 
     $("button#showDialog").click(function(){
