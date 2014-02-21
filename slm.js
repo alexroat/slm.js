@@ -1,8 +1,24 @@
 
-
-$.fn.slm=function(layout)
+(function($) {
+$.fn.slm=function(options)
 {
     var self=$(this);
+
+
+    //installa i css di default
+    if (options=="installCSS")
+    {
+        $("<style id='slmdefault' type='text/css'/>")
+        .text(".tabheader { background-color:white; border-bottom:1px solid black}"
+            +".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;}"
+            +".tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
+            +".splitter {background-color: gray;}"
+            +".shift {z-index:1000;background-color:black;color:white;}"
+            +".accheader{background-color:lightgrey;border:1px solid grey;}"
+            +".accheader.selected{ background-color:grey;color: white;}"
+            +".slmignore{font-family: sans-serif; font-size: medium; text-align: left;}")
+        .appendTo("head");
+    }
 
     function getT(s)
     {
@@ -379,7 +395,7 @@ $.fn.slm=function(layout)
 	
 
     return this;
-};
+}
 
 
-
+})(jQuery);
