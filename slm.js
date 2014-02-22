@@ -296,9 +296,9 @@ $.fn.slm=function(options)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","left":0,"right":0,"height":5,"overflow":"hidden","cursor":"row-resize"}).prependTo(self);
                 var drag=-1;
-			    spl.mousedown(function(e){ drag=e.pageY-t.sash;});
-				self.mouseup(function(e){ drag=-1;window.event.returnValue = true;});
-			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
+			    spl.bind("mousedown touchstart",function(e){ drag=e.pageY-t.sash;e.preventDefault();});
+				self.bind("mouseup touchend",function(e){ drag=-1;window.event.returnValue = true;e.preventDefault();});
+			    self.bind("mousemove touchmove",function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();window.event.returnValue = false;}e.preventDefault();});
                 t.ok=1;
                 setT(self,t);
             }
@@ -320,9 +320,9 @@ $.fn.slm=function(options)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self);
                 var drag=-1;
-			    spl.mousedown(function(e){ t=getT(self);drag=e.pageX-t.sash;});
-				self.mouseup(function(e){ drag=-1;});
-			    self.mousemove(function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}});
+			    spl.bind("mousedown touchstart",function(e){ t=getT(self);drag=e.pageX-t.sash;e.preventDefault();});
+				self.bind("mouseup touchend",function(e){ drag=-1;e.preventDefault();});
+			    self.bind("mousemove touchmove",function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}e.preventDefault();});
                 t.ok=1;
                 setT(self,t);
             }			
