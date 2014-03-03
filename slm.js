@@ -9,14 +9,13 @@ $.fn.slm=function(options)
     if (options=="installCSS")
     {
         $("<style id='slmdefault' type='text/css'/>")
-        .text(".tabheader { background-color:white; border-bottom:1px solid black}"
-            +".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;}"
+        .text(".tabheader {background-color:white; border-bottom:1px solid black}"
+            +".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
             +".tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
             +".splitter {background-color: rgb(196, 196, 196);}"
-            +".shift {z-index:1000;background-color:black;color:white;}"
-            +".accheader{background-color:lightgrey;border:1px solid grey;}"
-            +".accheader.selected{ background-color:grey;color: white;}"
-            +".slmignore{font-family: sans-serif; font-size: medium; text-align: left;}")
+            +".shift {z-index:1000;background-color:black;color:white;font-family: sans-serif; font-size: medium; text-align: left;cursor: default;}"
+            +".accheader{background-color:lightgrey;border:1px solid grey;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
+            +".accheader.selected{ background-color:grey;color: white;}")
         .appendTo("head");
     }
 
@@ -334,6 +333,35 @@ $.fn.slm=function(options)
             return false;
         },
         snap:function()
+        {
+            var i,o;
+			t.snap=isNaN(t.snap)?32:t.snap;
+			setT(self,t);
+            var w=self.width();
+            var ox=t.snap;
+            var oy=t.snap;
+            var maxch=0;
+			var rowcnt=0;
+            for (i=0;i<c.size();i++)
+            {
+                var cc=$(c[i]);
+			    var ct=getT(cc);
+			    var cw=(isNaN(ct.sx)?1:ct.sx)*t.snap;
+                var ch=(isNaN(ct.sy)?1:ct.sy)*t.snap;
+                if (ox+cw>w && rowcnt>0)
+                {
+                    ox=t.snap;
+                    oy+=maxch+t.snap;
+					maxch=0;
+                }
+				cc.css({top:oy,left:ox,width:cw,height:ch,position:'absolute'});            
+				rowcnt++;
+				ox+=cw+t.snap;
+				maxch=ch>maxch?ch:maxch;//stride
+                
+            }
+        },
+        menu:function()
         {
             var i,o;
 			t.snap=isNaN(t.snap)?32:t.snap;

@@ -52,63 +52,67 @@ $(function(){
     <div id="A" layout="sz:'boxV'" class="col-yellow;">
         <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
         <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
-            <div layout="sz:'boxH',title:'LEFT sidebar'">
-                <span layout="w:200,ex:1" class="col-purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>
-                <div layout="p:1,ex:1,sz:'tab'">
-                    <div class="col-red">I'm the nested tab 0</div>
-                    <div class="col-green">I'm the nested tab 1</div>
-                    <div class="col-blue">I'm the nested tab 2</div>
+            <div layout="sz:'tab',title:'VBOX/HBOX'">
+                <div layout="sz:'boxH',title:'LEFT sidebar'">
+                    <span layout="w:200,ex:1" class="col-purple">We are in the first tab. I'm a test of a sidebar nested in a tab and on my right you can find a further nested tabs. My width will be stay the same after a root (window) resize.</span>
+                    <div layout="p:1,ex:1,sz:'tab'">
+                        <div class="col-red">I'm the nested tab 0</div>
+                        <div class="col-green">I'm the nested tab 1</div>
+                        <div class="col-blue">I'm the nested tab 2</div>
+                    </div>
+                </div>
+                <div layout="sz:'boxH',title:'RIGHT sidebar'">
+                    <div layout="p:1,ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
+                    <span layout="w:200,ex:1" class="col-purple">The same as before but I'm a sidebar on the right instead, checkout my code in order to see how much simple is to create me</span>
+                </div>
+                <div layout="sz:'boxV',title:'TOP sidebar'">
+                    <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested header, a top bar. My height will remain constant.</span>
+                    <div layout="p:1,ex:1,sz:'tab'">
+                        <div class="col-red">I'm the nested tab 0</div>
+                        <div class="col-green">I'm the nested tab 1</div>
+                        <div class="col-blue">I'm the nested tab 2</div>
+                    </div>
+                </div>
+                <div layout="sz:'boxV',title:'BOTTOM sidebar'">
+                    <div layout="p:1,ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
+                    <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested footer, a bottom bar</span>
                 </div>
             </div>
-            <div layout="sz:'boxH',title:'RIGHT sidebar'">
-                <div layout="p:1,ex:1,sz:'tab'">
-                    <div class="col-cyan">I'm the nested tab 0</div>
-                    <div class="col-magenta">I'm the nested tab 1</div>
-                    <div class="col-orange">I'm the nested tab 2</div>
+            <div layout="sz:'tab',title:'SPLITTERS'">
+                <div layout="sz:'splitV',sash:100,title:'V split'">
+                    <span id="llll" class="col-purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
+                    <div layout="ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
                 </div>
-                <span layout="w:200,ex:1" class="col-purple">The same as before but I'm a sidebar on the right instead, checkout my code in order to see how much simple is to create me</span>
-            </div>
-            <div layout="sz:'boxV',title:'TOP sidebar'">
-                <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested header, a top bar. My height will remain constant.</span>
-                <div layout="p:1,ex:1,sz:'tab'">
-                    <div class="col-red">I'm the nested tab 0</div>
-                    <div class="col-green">I'm the nested tab 1</div>
-                    <div class="col-blue">I'm the nested tab 2</div>
+                <div layout="sz:'splitH',sash:200,title:'H split'">
+                    <span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
+                    <div layout="ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
                 </div>
-            </div>
-            <div layout="sz:'boxV',title:'BOTTOM sidebar'">
-                <div layout="p:1,ex:1,sz:'tab'">
-                    <div class="col-cyan">I'm the nested tab 0</div>
-                    <div class="col-magenta">I'm the nested tab 1</div>
-                    <div class="col-orange">I'm the nested tab 2</div>
-                </div>
-                <span layout="h:200,ex:1" class="col-purple">The same , but I'm a sort of nested footer, a bottom bar</span>
-            </div>
-            <div layout="sz:'splitV',sash:100,title:'V split'">
-                <span id="llll" class="col-purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
-                <div layout="ex:1,sz:'tab'">
-                    <div class="col-cyan">I'm the nested tab 0</div>
-                    <div class="col-magenta">I'm the nested tab 1</div>
-                    <div class="col-orange">I'm the nested tab 2</div>
-                </div>
-            </div>
-            <div layout="sz:'splitH',sash:200,title:'H split'">
-                <span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
-                <div layout="ex:1,sz:'tab'">
-                    <div class="col-cyan">I'm the nested tab 0</div>
-                    <div class="col-magenta">I'm the nested tab 1</div>
-                    <div class="col-orange">I'm the nested tab 2</div>
-                </div>
-            </div>
-            <div layout="sz:'splitV',sash:100,title:'NESTED Vsplit/Hsplit'">
-                <div class="col-cyan">split ...</div>
-                <div layout="ex:1,sz:'splitH',sash:100">
-                    <div class="col-magenta">and split ...</div>
-                    <div layout="ex:1,sz:'splitV',sash:100">
-                        <div class="col-yellow">and split again ...</div>
-                        <div layout="ex:1,sz:'splitH',sash:100">
-                            <div class="col-orange">we are a set of nested splitters .. an example about how much powerful is slm.js .. </div>
-                            <div class="col-purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
+                <div layout="sz:'splitV',sash:100,title:'NESTED Vsplit/Hsplit'">
+                    <div class="col-cyan">split ...</div>
+                    <div layout="ex:1,sz:'splitH',sash:100">
+                        <div class="col-magenta">and split ...</div>
+                        <div layout="ex:1,sz:'splitV',sash:100">
+                            <div class="col-yellow">and split again ...</div>
+                            <div layout="ex:1,sz:'splitH',sash:100">
+                                <div class="col-orange">we are a set of nested splitters .. an example about how much powerful is slm.js .. </div>
+                                <div class="col-purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,30 +156,30 @@ $(function(){
                 <div layout="p:1,ex:1,sz:'snap'" class="col-white snap">
                     <div layout="sx:3,sy:2">A</div>
                     <div layout="sx:2,sy:2">B</div>
-                    <div>C</div>
+                    <button>C</button>
                     <div layout="sx:2,sy:2">D</div>
                     <div>E</div>
                     <div layout="sx:4,sy:1">F</div>
                     <div>G</div>
                     <div layout="sx:4,sy:2">H</div>
                     <div>I</div>
-                    <div layout="sx:3,sy:2">J</div>
+                    <button layout="sx:3,sy:2">J</button>
                     <div layout="sx:2,sy:2">K</div>
                     <div>L</div>
                     <div layout="sx:2,sy:2">M</div>
                     <div>N</div>
                     <div layout="sx:4,sy:1">O</div>
                     <div>P</div>
-                    <div layout="sx:4,sy:2">Q</div>
+                    <button layout="sx:4,sy:2">Q</button>
                     <div>R</div>
                     <div layout="sx:3,sy:2">S</div>
                     <div layout="sx:2,sy:2">T</div>
                     <div>U</div>
-                    <div layout="sx:2,sy:2">V</div>
+                    <button layout="sx:2,sy:2">V</button>
                     <div>W</div>
                     <div layout="sx:4,sy:1">X</div>
                     <div>Y</div>
-                    <div layout="sx:4,sy:2">Z</div>
+                    <button layout="sx:4,sy:2">Z</button>
                 </div>
             </div>
         </div>
