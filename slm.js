@@ -1,4 +1,3 @@
-
 (function($) {
 $.fn.slm=function(options)
 {
@@ -8,15 +7,31 @@ $.fn.slm=function(options)
     //installa i css di default
     if (options=="installCSS")
     {
-        $("<style id='slmdefault' type='text/css'/>")
-        .text(".tabheader {background-color:white; border-bottom:1px solid black}"
-            +".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 2px solid grey;margin: 1px;padding: 2px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
-            +".tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
-            +".splitter {background-color: rgb(196, 196, 196);}"
-            +".shift {z-index:1000;background-color:black;color:white;font-family: sans-serif; font-size: medium; text-align: left;cursor: default;}"
-            +".accheader{background-color:lightgrey;border:1px solid grey;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
-            +".accheader.selected{ background-color:grey;color: white;}")
-        .appendTo("head");
+
+		var css=".tabheader {background-color:white; border-bottom:1px solid black;padding:2px}"
+		+".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
+		+".tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
+		+".splitter {background-color: rgb(196, 196, 196);}"
+		+".shift {z-index:1000;background-color:black;color:white;font-family: sans-serif; font-size: medium; text-align: left;cursor: default;}"
+		+".accheader{background-color:lightgrey;border:1px solid grey;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
+		+".accheader.selected{ background-color:grey;color: white;}"
+		+".menu{ background-color:grey;}"
+		+".menu>*{ background-color:lightgrey;}"
+		+"ul.menu{ padding:2px;margin:0px;background-color:lightgrey;}"
+		+"ul.menu>li{list-style-type: none;cursor: default;background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 0px;padding: 1px; color: black;}"
+		+"ul.menu>li:hover{background: linear-gradient(#73A5C7, #7878EC);color: white;}"
+		+"ul.menubar>li{display:inline-block;}";
+	
+		var style = document.createElement('style');
+		style.setAttribute("type", "text/css");
+		if (style.styleSheet) {   // for IE
+			style.styleSheet.cssText = css;
+		} else {                // others
+			var textnode = document.createTextNode(css);
+			style.appendChild(textnode);
+		}
+		var h = document.getElementsByTagName('head')[0];
+		h.appendChild(style);
     }
 
     function getT(s)
@@ -226,7 +241,7 @@ $.fn.slm=function(options)
             }       
             //adattamento children
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
-            var hs=self.children(".tabheader").outerHeight();
+            var hs=self.children(".tabheader").outerHeight(true);
             c.hide();
             $(c[t.sel]).css({"position":"absolute","left":0,"top":hs,"right":0,"bottom":0}).show();
             
@@ -358,37 +373,32 @@ $.fn.slm=function(options)
 				rowcnt++;
 				ox+=cw+t.snap;
 				maxch=ch>maxch?ch:maxch;//stride
-                
             }
+			return false;
         },
-        menu:function()
+		menu:function()
         {
             var i,o;
-			t.snap=isNaN(t.snap)?32:t.snap;
-			setT(self,t);
-            var w=self.width();
-            var ox=t.snap;
-            var oy=t.snap;
-            var maxch=0;
-			var rowcnt=0;
-            for (i=0;i<c.size();i++)
+			t.bar=!!t.bar;//indica se il menu è a barra
+			self.css("overflow","initial");
+            if (!t.ok)
             {
-                var cc=$(c[i]);
-			    var ct=getT(cc);
-			    var cw=(isNaN(ct.sx)?1:ct.sx)*t.snap;
-                var ch=(isNaN(ct.sy)?1:ct.sy)*t.snap;
-                if (ox+cw>w && rowcnt>0)
-                {
-                    ox=t.snap;
-                    oy+=maxch+t.snap;
-					maxch=0;
-                }
-				cc.css({top:oy,left:ox,width:cw,height:ch,position:'absolute'});            
-				rowcnt++;
-				ox+=cw+t.snap;
-				maxch=ch>maxch?ch:maxch;//stride
-                
+				var fshow=function(bar){return function(){
+				var c = $(this);
+				c.children()
+				.css({position:'absolute','z-index':100,top:bar?c.outerHeight():0,left:bar?0:c.outerWidth()}).show();};
+				};
+				self.addClass("menu");
+				if (t.bar)
+					self.addClass("menubar");
+				c.hover(fshow(t.bar),function(){$(this).children().hide();});
+				t.ok=1;
+				setT(self,t);
+				c.children().hide().each($.fn.slm);
+				self.parent().each($.fn.slm);
             }
+			
+            return false;
         }
     }[t.sz];
 
@@ -398,8 +408,6 @@ $.fn.slm=function(options)
 	
 		if (self.css("position")=="static")
 			self.css("position","relative");
-
-
 	
 		if (fl)
 		{
@@ -415,11 +423,14 @@ $.fn.slm=function(options)
 	
 	//propagate();//propagate event to the children
 	//Alternative trick for performance: 	if not already scheduled, schedule the propagation when idle, otherwise skip
-	if (!self[0].__pro)
+	/*if (!self[0].__pro)
 	{
 		self[0].__pro=1;
 		setTimeout(function(){propagate();delete self[0].__pro;},0);
-	}
+	}*/
+	
+	
+	setTimeout(propagate,0);
 	
 
     return this;

@@ -51,6 +51,37 @@ $(function(){
 <div id="root" layout="sz:'fullpage',w:400,h:400">
     <div id="A" layout="sz:'boxV'" class="col-yellow;">
         <span layout="ex:1" id="AA" class="col-red">I'm the header, I will stay on top with a fixed height, try to resize the window</span>
+		<ul layout="ex:1,sz:'menu',bar:1" id="menu">
+			<li>First
+				<ul layout="sz:'menu'">
+					<li>First</li>
+					<li>Second</li>
+					<li>Third
+						<ul layout="sz:'menu'">
+							<li>First</li>
+							<li>Second</li>
+							<li>Third</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>Second
+				<ul layout="sz:'menu'">
+					<li>First</li>
+					<li>Second</li>
+				</ul>
+			</li>
+			<li>Third
+				<ul layout="sz:'menu'">
+					<li>First</li>
+					<li>Second
+						<ul layout="sz:'menu'">
+							<li>First</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
         <div id="AB" layout="p:1,ex:1,sz:'tab'" class="col-green">
             <div layout="sz:'tab',title:'VBOX/HBOX'">
                 <div layout="sz:'boxH',title:'LEFT sidebar'">
@@ -200,4 +231,5 @@ $(function(){
 </div>
 </body>
 </html>
+
 
