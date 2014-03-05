@@ -17,7 +17,7 @@ $.fn.slm=function(options)
 		+".accheader.selected{ background-color:grey;color: white;}"
 		+".menu{ background-color:grey;}"
 		+".menu>*{ background-color:lightgrey;}"
-		+"ul.menu{ padding:2px;margin:0px;background-color:lightgrey;}"
+		+"ul.menu{ padding:0px;margin:0px;background-color:lightgrey;}"
 		+"ul.menu>li{list-style-type: none;cursor: default;background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 0px;padding: 1px; color: black;}"
 		+"ul.menu>li:hover{background: linear-gradient(#73A5C7, #7878EC);color: white;}"
 		+"ul.menubar>li{display:inline-block;}";
@@ -386,7 +386,7 @@ $.fn.slm=function(options)
 				var fshow=function(bar){return function(){
 				var c = $(this);
 				c.children()
-				.css({position:'absolute','z-index':100,top:bar?c.outerHeight():0,left:bar?0:c.outerWidth()}).show();};
+				.css({position:'absolute','z-index':100,top:bar?c.outerHeight()-1:0,left:bar?0:c.outerWidth()-1}).show();};
 				};
 				self.addClass("menu");
 				if (t.bar)
