@@ -25,8 +25,6 @@ body, button
 }
 
 </style>
-
-
 <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="slm.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -166,7 +164,9 @@ $(function(){
                     <div class="col-orange">third part</div>
                     <div class="col-purple">fourth part</div>
                 </div>
-                <div class="col-purple">Look on the left , there is an accordion</div>
+                <div class="col-purple">Look on the left , there is an accordion
+                    <div class="exclude" style="background:red" layout="sz:'absolute',x:10,y:20,w:100,h:100">ABSOLUTE</div>
+                </div>
             </div>
             <div layout="ex:1,sz:'splitH',sash:200,title:'SNAP'">
                 <div layout="p:1,ex:1,sz:'snap'" class="col-purple snap">
@@ -214,6 +214,9 @@ $(function(){
                     <div>Y</div>
                     <button layout="sx:4,sy:2">Z</button>
                 </div>
+            </div>
+            <div layout="ex:1,title:'FLAP'">
+               <div class="exclude col-magenta" layout="sz:'flap',o:'w'">ciao, eccomi qui</div>
             </div>
         </div>
         <div layout="sz:'boxH',ex:1,h:80">
