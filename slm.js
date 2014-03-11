@@ -107,15 +107,32 @@ $.fn.slm=function(options)
 		target.bind("mousedown",fmousedown);
 	};
 	
-	
-    //ricerca funzione
+
+
+
+    //funzioni di geomerty handling
 	var c;
-    var fl={
-        fullpage:function()
+    var flsz={
+        absolute:function()
         {
+            self.css({overflow:'hidden'});
             if (!t.ok)
             {
-                //vincolail contenitore alla finestra e aggancia gli eventi di resize
+                t.x=isNaN(t.x)?0:t.x;
+                t.y=isNaN(t.x)?0:t.y;
+                t.w=isNaN(t.x)?0:t.w;
+                t.h=isNaN(t.x)?0:t.h;
+                self.css({"position":'absolute',"left":t.x,"top":t.y,"width":t.w,"height":t.h});
+                t.ok=1;
+                setT(self,t);
+            }
+        },
+        fullpage:function()
+        {
+            self.css({overflow:'hidden'});
+            if (!t.ok)
+            {
+                //vincola il contenitore alla finestra e aggancia gli eventi di resize
                 self.css({"position":"fixed","left":0,"top":0,"right":0,"bottom":0,"width":"","height":""});
                 $(window).on("resize",propagate);
                 //figli: il dialog accetta un solo figlio e lo massimizza
@@ -127,6 +144,7 @@ $.fn.slm=function(options)
         },
         dialog:function()
         {
+            self.css({overflow:'hidden'});
 			t.x=isNaN(t.x)?100:t.x;
 			t.y=isNaN(t.y)?100:t.y;
 			t.w=isNaN(t.w)?100:t.w;
@@ -155,6 +173,7 @@ $.fn.slm=function(options)
         },
         boxV:function()
         {
+            self.css({overflow:'hidden'});
             var r,i,o;
             r=self.innerHeight();
             var ta=[];
@@ -188,6 +207,7 @@ $.fn.slm=function(options)
         },
         boxH:function()
         {
+            self.css({overflow:'hidden'});
             var r,i,o;
             r=self.innerWidth();
             var ta=[];
@@ -221,6 +241,7 @@ $.fn.slm=function(options)
         },
         tab:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
@@ -249,6 +270,7 @@ $.fn.slm=function(options)
         },
         accordion:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             if (!t.ok)
@@ -276,11 +298,12 @@ $.fn.slm=function(options)
             //adattamento children
             c.hide();
             t.sel=isNaN(t.sel)?0:t.sel%c.size();
-            $(c[t.sel]).show().css({left:0,right:0,height:r});
+            $(c[t.sel]).show().css({left:0,right:0,height:r},{queue: false });
             return false;
         },
 		shift:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
             //creazione header
@@ -302,6 +325,7 @@ $.fn.slm=function(options)
         },
 		splitV:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.sash=isNaN(t.sash)?self.height()/2:t.sash;
 			setT(self,t);
@@ -326,6 +350,7 @@ $.fn.slm=function(options)
         },
 		splitH:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.sash=isNaN(t.sash)?self.width()/2:t.sash;
 			setT(self,t);
@@ -349,6 +374,7 @@ $.fn.slm=function(options)
         },
         snap:function()
         {
+            self.css({overflow:'hidden'});
             var i,o;
 			t.snap=isNaN(t.snap)?32:t.snap;
 			setT(self,t);
@@ -380,13 +406,13 @@ $.fn.slm=function(options)
         {
             var i,o;
 			t.bar=!!t.bar;//indica se il menu è a barra
-			self.css("overflow","initial");
+			self.css({overflow:"initial"});
             if (!t.ok)
             {
 				var fshow=function(bar){return function(){
-				var c = $(this);
-				c.children()
-				.css({position:'absolute','z-index':100,top:bar?c.outerHeight()-1:0,left:bar?0:c.outerWidth()-1}).show();};
+				    var c = $(this);
+				    c.children().css({position:'absolute','z-index':100,top:bar?c.outerHeight()-1:0,left:bar?0:c.outerWidth()-1}).show();
+                    };
 				};
 				self.addClass("menu");
 				if (t.bar)
@@ -399,6 +425,50 @@ $.fn.slm=function(options)
             }
 			
             return false;
+        },
+        flap:function()
+        {
+            if (!t.ok)
+            {
+                self.css({position:'absolute'});
+                var cl=$("<button/>").text("<>").addClass("slmignore").prependTo(self);
+                var dr=null;
+                t.w=t.w?t.w:self.outerWidth();
+                t.h=t.h?t.h:self.outerHeight();
+                switch (t.o)
+                {
+                    case 'w':
+                        self.css({top:0,bottom:0,right:0,width:t.w});
+                        dr={width:20};
+                        break;
+                    case 'e':
+                        self.css({top:0,bottom:0,left:0,width:t.w});
+                        dr={width:20};
+                        break;
+                    case 'n':
+                        self.css({left:0,right:0,top:0,height:t.h});
+                        dr={height:20};
+                        break;
+                    case 's':
+                        self.css({left:0,right:0,bottom:0,height:t.h});
+                        dr={height:20};
+                        break;
+                }
+
+                cl.click(function(){
+                    var t = getT(self);
+                    t.closed=!t.closed;
+                    var d = (t.o=='w' || t.o=="e")?t.w:t.h;
+                    var da = (t.o=='w' || t.o=="e")?"width":"height";
+                    self.css(da,t.closed?20:d);
+                    setT(self,t);
+                    return false;
+                });
+                t.ok=1;
+                setT(self,t);
+
+            }
+
         }
     }[t.sz];
 
@@ -408,16 +478,17 @@ $.fn.slm=function(options)
 	
 		if (self.css("position")=="static")
 			self.css("position","relative");
-	
-		if (fl)
-		{
-			self.css("overflow","hidden");
-			c = self.children(":not(.slmignore)").css({height:"",width:""});
-			fl();
-			//propaga solo ai children visibili
-			c.filter(":visible").each($.fn.slm);
-		}
+
+
+		//self.css("overflow","hidden");
+		var ttc = self.children(":not(.slmignore)");
+        c=ttc.filter(":not(.exclude)").css({height:"",width:""});
+
+		if (flsz)
+		    flsz();
 		
+        ttc.filter(":visible").each($.fn.slm);
+
 
 	};
 	
