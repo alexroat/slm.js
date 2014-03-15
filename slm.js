@@ -32,6 +32,7 @@ $.fn.slm=function(options)
 		}
 		var h = document.getElementsByTagName('head')[0];
 		h.appendChild(style);
+        return this;
     }
 
     function getT(s)
@@ -529,11 +530,8 @@ $.fn.slm=function(options)
 
 	var propagate=function()
 	{
-	
 		if (self.css("position")=="static")
 			self.css("position","relative");
-
-
 
 		var ttc = self.children(":not(.slmignore)");
         c=ttc.filter(":not(.exclude)").css({height:"",width:""});
