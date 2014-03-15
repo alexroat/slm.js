@@ -9,8 +9,8 @@ $.fn.slm=function(options)
     {
 
 		var css=".tabheader {background-color:white; border-bottom:1px solid black;padding:2px}"
-		+".tabheader span { background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
-		+".tabheader span.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
+		+".tabheader div { background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
+		+".tabheader div.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
 		+".splitter {background-color: rgb(196, 196, 196);}"
 		+".shift {z-index:1000;background-color:black;color:white;font-family: sans-serif; font-size: medium; text-align: left;cursor: default;}"
 		+".accheader{background-color:lightgrey;border:1px solid grey;cursor: default;font-family: sans-serif; font-size: medium; text-align: left;}"
@@ -53,7 +53,20 @@ $.fn.slm=function(options)
         s.attr("layout",ts);
     }
 
+	
+	function invalidate(s)
+	{
+		var t=getT(s);
+		t.ok=0;
+		setT(s,t);
+		s.slm();
+	}
+	
+	
     var t=getT(self);
+	
+	
+	
 	
 	
     //crea gestione resize su target
@@ -244,6 +257,7 @@ $.fn.slm=function(options)
             self.css({overflow:'hidden'});
             var i,o;
 			t.sel=isNaN(t.sel)?0:t.sel;
+            var isv=(t.o=='w' || t.o=='e');
             //creazione header
             if (!t.ok)
             {
@@ -254,7 +268,8 @@ $.fn.slm=function(options)
                     var cc=$(c[i]);
 				    var pt=getT(cc);
 				    pt.title=(pt.title==undefined)?"tab "+i:pt.title;
-                    var s=$("<span/>").text(pt.title).appendTo(header).toggleClass("selected",i==t.sel);
+                    var s=$("<div/>").text(pt.title).appendTo(header).toggleClass("selected",i==t.sel);
+                    s.css({"display":isv?"block":"inline-block"});
 				    s.click((function(j){return function(){t.sel=j;setT(self,t);header.children().removeClass("selected");$(this).addClass("selected");self.slm();}})(i));
                 }
                 t.ok=1;
@@ -428,46 +443,90 @@ $.fn.slm=function(options)
         },
         flap:function()
         {
+		
+			//var sps = 30;//spessore flap
+		
+            self.css({overflow:'hidden',position:'absolute'});
+            var i,o;
+            //creazione header
             if (!t.ok)
             {
-                self.css({position:'absolute'});
-                var cl=$("<button/>").text("<>").addClass("slmignore").prependTo(self);
-                var dr=null;
-                t.w=t.w?t.w:self.outerWidth();
-                t.h=t.h?t.h:self.outerHeight();
-                switch (t.o)
-                {
-                    case 'w':
-                        self.css({top:0,bottom:0,right:0,width:t.w});
-                        dr={width:20};
-                        break;
-                    case 'e':
-                        self.css({top:0,bottom:0,left:0,width:t.w});
-                        dr={width:20};
-                        break;
-                    case 'n':
-                        self.css({left:0,right:0,top:0,height:t.h});
-                        dr={height:20};
-                        break;
-                    case 's':
-                        self.css({left:0,right:0,bottom:0,height:t.h});
-                        dr={height:20};
-                        break;
-                }
+				self.addClass("exclude");
+				invalidate(self.parent());
+			
 
-                cl.click(function(){
-                    var t = getT(self);
-                    t.closed=!t.closed;
-                    var d = (t.o=='w' || t.o=="e")?t.w:t.h;
-                    var da = (t.o=='w' || t.o=="e")?"width":"height";
-                    self.css(da,t.closed?20:d);
-                    setT(self,t);
-                    return false;
-                });
+                var isv=(t.o=='w' || t.o=='e');
+
+			
+                self.children(".slmignore").remove();
+                var header=$("<div/>",{"class":"slmignore tabheader"}).css({"position":"absolute","overflow":"hidden"}).prependTo(self);
+                for (i=0;i<c.size();i++)
+                {
+                    var cc=$(c[i]);
+				    var pt=getT(cc);
+				    pt.title=(pt.title==undefined)?"tab "+i:pt.title;
+                    var s=$("<div/>").text(pt.title).appendTo(header);
+                    s.css({"display":isv?"block":"inline-block"});
+				    s.click((function(j){return function(){header.children().removeClass("selected");if (t.sel==j){t.sel=undefined;}else{t.sel=j;$(this).addClass("selected");}setT(self,t);self.slm();}})(i));
+					if (cc.css("overflow")=="visible")
+						cc.css("overflow","auto");
+                }
+				switch(t.o)
+				{
+					case 'n':
+						self.css({top:0,left:0,right:0,bottom:'auto',width:'auto',height:t.h});
+						header.css({bottom:0,left:0,right:0});
+						break;
+					case 's':
+						self.css({bottom:0,left:0,right:0,top:'auto',width:'auto',height:t.h});
+						header.css({top:0,left:0,right:0});
+						break;				
+					case 'w':
+						self.css({top:0,bottom:0,left:0,right:'auto',height:'auto',width:t.w});
+						header.css({top:0,bottom:0,right:0});
+						break;
+					case 'e':
+						self.css({top:0,bottom:0,right:0,left:'auto',height:'auto',width:t.w});
+						header.css({top:0,bottom:0,left:0});
+						break;
+				}
+				
                 t.ok=1;
                 setT(self,t);
-
             }
+
+			
+			var header = self.children(".tabheader");
+			
+			var hs=header.outerHeight(true);
+			var ws=header.outerWidth(true);
+			var opened= (t.sel!=undefined);
+			c.css({position:'absolute'});
+			switch(t.o)
+			{
+				case 'n':
+					c.css({top:0,left:0,right:0,bottom:hs});
+					self.css({height:(opened?t.h:hs)});
+					break;
+				case 's':
+					c.css({bottom:0,left:0,right:0,top:hs});
+					self.css({height:(opened?t.h:hs)});
+					break;				
+				case 'w':
+					c.css({top:0,bottom:0,left:0,right:ws});
+					self.css({width:(opened?t.w:ws)});
+					break;
+				case 'e':
+					c.css({top:0,bottom:0,right:0,left:ws});
+					self.css({width:(opened?t.w:ws)});
+					break;
+			}
+			c.hide();
+			if (t.sel!=undefined)
+				$(c[t.sel]).show();
+			
+            
+            return false;
 
         }
     }[t.sz];
@@ -480,7 +539,7 @@ $.fn.slm=function(options)
 			self.css("position","relative");
 
 
-		//self.css("overflow","hidden");
+
 		var ttc = self.children(":not(.slmignore)");
         c=ttc.filter(":not(.exclude)").css({height:"",width:""});
 
@@ -509,3 +568,4 @@ $.fn.slm=function(options)
 
 
 })(jQuery);
+
