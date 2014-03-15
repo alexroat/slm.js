@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -216,7 +218,20 @@ $(function(){
                 </div>
             </div>
             <div layout="ex:1,title:'FLAP'">
-               <div class="exclude col-magenta" layout="sz:'flap',o:'w'">ciao, eccomi qui</div>
+               <div class="col-magenta" layout="sz:'flap',o:'e',w:200">
+					<div layout="sz:'splitV',sash:100"> 
+                        <div class="col-red">First flap, splitted by ... a splitter</div>
+                        <div class="col-green">First flap</div>
+                    </div>
+					<div layout="p:1,ex:1,sz:'accordion'" class="col-white">
+                        <div class="col-cyan">First part</div>
+                        <div class="col-magenta">Second part</div>
+                        <div class="col-orange">third part</div>
+                        <div class="col-purple">fourth part</div>
+                    </div>
+					<div> test 2</div>
+					<div> test 3</div>
+			   </div>
             </div>
         </div>
         <div layout="sz:'boxH',ex:1,h:80">
@@ -236,5 +251,9 @@ $(function(){
 </div>
 </body>
 </html>
+
+
+
+
 
 
