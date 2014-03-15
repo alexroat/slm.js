@@ -12,7 +12,7 @@ $.fn.slm=function(options)
 		+".tabheader div { background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
 		+".tabheader div.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
 		+".splitter {background-color: rgb(196, 196, 196);}"
-		+".shift {z-index:1000;background-color:black;color:white;font-family: sans-serif; font-size: medium; text-align: left;cursor: default;}"
+		+".shift {z-index:1000;background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
 		+".accheader{background: linear-gradient(#DDDDFF, #EEEEFF);border: 1px solid grey;margin: 1px;padding: 1px;cursor: default;font-family: sans-serif; font-size: medium; text-align: left; color: black;}"
 		+".accheader.selected{ background: linear-gradient(#73A5C7, #7878EC);color: white;}"
 		+".menu{ background-color:grey;}"
