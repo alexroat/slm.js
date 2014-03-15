@@ -443,18 +443,12 @@ $.fn.slm=function(options)
         },
         flap:function()
         {
-		
-			//var sps = 30;//spessore flap
-		
             self.css({overflow:'hidden',position:'absolute'});
             var i,o;
             //creazione header
             if (!t.ok)
             {
 				self.addClass("exclude");
-				invalidate(self.parent());
-			
-
                 var isv=(t.o=='w' || t.o=='e');
 
 			
@@ -493,6 +487,7 @@ $.fn.slm=function(options)
 				
                 t.ok=1;
                 setT(self,t);
+				invalidate(self.parent());
             }
 
 			
@@ -551,16 +546,16 @@ $.fn.slm=function(options)
 
 	};
 	
-	//propagate();//propagate event to the children
-	//Alternative trick for performance: 	if not already scheduled, schedule the propagation when idle, otherwise skip
-	/*if (!self[0].__pro)
-	{
-		self[0].__pro=1;
-		setTimeout(function(){propagate();delete self[0].__pro;},0);
-	}*/
-	
-	
-	setTimeout(propagate,0);
+	propagate();//propagate event to the children
+
+
+    /*if ($.fn.slm.__deferred)
+        propagate();
+    else
+    {
+        $.fn.slm.__deferred=true;
+        setTimeout(function(){propagate();$.fn.slm.__deferred=false;},0);
+    }*/
 	
 
     return this;
