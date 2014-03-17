@@ -10,11 +10,11 @@ http://alexroat.github.io/slm.js/
 
 slm.js provides a simple method to create very complex and fully nestable layouts.
 The main aim is to avoid to write directly javascript code to create and manage the layout manager (sizers) hierachy, adopting a simple sintax in the custom "layout" attribute that can be appended on the elements that compose the interface.
-The major benefits of this approach is 
-  -the annihilation of the JS code for the layout management
-  -the full interoperability with other JS library and the avoidance of the namespace pollution
-  -the improved readability of the HTML
-  -the reusage of the experience in UI organization for developers that comes from Desktop UI library (similar concepts in wxWidgets, QT, GTK, ...)
+The major benefits of this approach are 
+- the annihilation of the JS code for the layout management
+- the full interoperability with other JS library and the avoidance of the namespace pollution
+- the improved readability of the HTML
+- the reusage of the experience in UI organization for developers that comes from Desktop UI library (similar concepts in wxWidgets, QT, GTK, ...)
 
 
 At the moment the available sizers are:
