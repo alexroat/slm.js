@@ -31,7 +31,7 @@ At the moment the available sizers are:
 - dialog: they bring a container in a dialog that is draggable, closable and resizable
 
 
-"layout" attribute use a JS object like syntax (but without root brachets) achieving a very smooth signature in your HTML elements. You can choose the sizer that will be impersonated by an element by the parameter "sz". You can then set other specific parameter in the children nodes and set them as other nested sizers always with "sz" parameter.
+"layout" attribute uses a JS object like syntax (but without root brachets) achieving a very smooth signature in your HTML elements. You can choose the sizer that will be impersonated by an element by the parameter "sz". You can then set other specific parameter in the children nodes and set them as other nested sizers always with "sz" parameter.
 
 
 In order to "bootstrap" the slm.js, you have simply to call the plugin on the root element in the $( document ).ready callback.
