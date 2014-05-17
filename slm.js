@@ -133,9 +133,9 @@ $.fn.slm=function(options)
             if (!t.ok)
             {
                 t.x=isNaN(t.x)?0:t.x;
-                t.y=isNaN(t.x)?0:t.y;
-                t.w=isNaN(t.x)?0:t.w;
-                t.h=isNaN(t.x)?0:t.h;
+                t.y=isNaN(t.y)?0:t.y;
+                t.w=isNaN(t.w)?0:t.w;
+                t.h=isNaN(t.h)?0:t.h;
                 self.css({"position":'absolute',"left":t.x,"top":t.y,"width":t.w,"height":t.h});
                 t.ok=1;
                 setT(self,t);
