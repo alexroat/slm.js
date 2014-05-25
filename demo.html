@@ -129,7 +129,23 @@ $(function(){
                         <div class="col-orange">I'm the nested tab 2</div>
                     </div>
                 </div>
+                <div layout="sz:'splitV',sash:100,title:'V split inverse',inverse:1">
+                                    <span id="llll" class="col-purple">I'm a splitter, my left side will not scale buut you can adjust my size dragging the separator with the mouse. The content (a set of tabs) will be adapted automatically.</span>
+                    <div layout="ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
+                </div>
                 <div layout="sz:'splitH',sash:200,title:'H split'">
+                    <span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
+                    <div layout="ex:1,sz:'tab'">
+                        <div class="col-cyan">I'm the nested tab 0</div>
+                        <div class="col-magenta">I'm the nested tab 1</div>
+                        <div class="col-orange">I'm the nested tab 2</div>
+                    </div>
+                </div>
+  		<div layout="sz:'splitH',sash:200,title:'H split inverse',inverse:1">
                     <span id="llll" class="col-purple">I'm a splitter too, but I'm working horizontally</span>
                     <div layout="ex:1,sz:'tab'">
                         <div class="col-cyan">I'm the nested tab 0</div>
@@ -148,6 +164,13 @@ $(function(){
                                 <div class="col-purple">4 levels of inception (nesting)  ... try to move the separator with the mouse.... enjoy!</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div layout="sz:'splitH',sash:200,title:'2 fixed column layout'">
+                    <div>CONSTANT</div>
+                    <div layout="sz:'splitH',sash:200,title:'H split',inverse:1">
+                        <div>DYNAMIC</div>
+                        <div>CONSTANT</div>
                     </div>
                 </div>
             </div>
