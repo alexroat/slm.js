@@ -339,7 +339,7 @@ $.fn.slm=function(options)
             $(c[t.sel]).css({"position":"absolute","left":0,"top":0,"right":0,"bottom":0}).show();
             return false;
         },
-		splitV:function()
+	splitV:function()
         {
             self.css({overflow:'hidden'});
             var i,o;
@@ -349,22 +349,34 @@ $.fn.slm=function(options)
             if (!t.ok)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","left":0,"right":0,"height":5,"overflow":"hidden","cursor":"row-resize"}).prependTo(self);
-                var drag=-1;
-			    spl.bind("mousedown touchstart",function(e){ drag=e.pageY-t.sash;e.preventDefault();});
-				self.bind("mouseup touchend",function(e){ drag=-1;window.event.returnValue = true;e.preventDefault();});
-			    self.bind("mousemove touchmove",function(e){if(drag>=0){t.sash=e.pageY-drag;setT(self,t);self.slm();window.event.returnValue = false;}e.preventDefault();});
+                var drag=null;
+			    spl.bind("mousedown",function(e){ drag=(t.inverse?-e.pageY:e.pageY)-t.sash;e.preventDefault();});
+				self.bind("mouseup",function(e){ drag=null;window.event.returnValue = true;e.preventDefault();});
+			    self.bind("mousemove",function(e){if (drag){t.sash=(t.inverse?-e.pageY:e.pageY)-drag;setT(self,t);self.slm();}window.event.returnValue = false;e.preventDefault();});
                 t.ok=1;
                 setT(self,t);
             }
             //adattamento children	
             var p0=$(c[0]);
 			var p1=$(c[1]);
-			p0.css({"position":"absolute","left":0,"top":0,"right":0,"height":t.sash});
-			p1.css({"position":"absolute","left":0,"top":t.sash+5,"right":0,"bottom":0});
-			self.children(".splitter").css("top",t.sash);
+           
+            if (!t.inverse)
+            {
+			    p0.css({"position":"absolute","left":0,"top":0,"right":0,"height":t.sash});
+    			p1.css({"position":"absolute","left":0,"top":t.sash+5,"right":0,"bottom":0});
+       			self.children(".splitter").css("top",t.sash);
+            }
+            else
+            {
+                p1.css({"position":"absolute","left":0,"bottom":0,"right":0,"height":t.sash});
+    			p0.css({"position":"absolute","left":0,"bottom":t.sash+5,"right":0,"top":0});
+       			self.children(".splitter").css("bottom",t.sash);
+
+            }
+
             return false;
         },
-		splitH:function()
+	splitH:function()
         {
             self.css({overflow:'hidden'});
             var i,o;
@@ -374,18 +386,27 @@ $.fn.slm=function(options)
             if (!t.ok)
             {
                 var spl=$("<div/>",{"class":"slmignore splitter"}).css({"position":"absolute","top":0,"bottom":0,"width":5,"overflow":"hidden","cursor":"col-resize"}).prependTo(self);
-                var drag=-1;
-			    spl.bind("mousedown touchstart",function(e){ t=getT(self);drag=e.pageX-t.sash;e.preventDefault();});
-				self.bind("mouseup touchend",function(e){ drag=-1;e.preventDefault();});
-			    self.bind("mousemove touchmove",function(e){if(drag>=0){t.sash=e.pageX-drag;setT(self,t);self.slm();window.event.returnValue = false;}e.preventDefault();});
+                var drag=null;
+			    spl.bind("mousedown touchstart",function(e){ t=getT(self);drag=(t.inverse?-e.pageX:e.pageX)-t.sash;e.preventDefault();});
+				self.bind("mouseup touchend",function(e){ drag=null;e.preventDefault();});
+			    self.bind("mousemove touchmove",function(e){if(drag){t.sash=(t.inverse?-e.pageX:e.pageX)-drag;setT(self,t);self.slm();window.event.returnValue = false;}e.preventDefault();});
                 t.ok=1;
                 setT(self,t);
             }			
             var p0=$(c[0]);
 			var p1=$(c[1]);
-			p0.css({"position":"absolute","top":0,"bottom":0,"left":0,"width":t.sash});
-			p1.css({"position":"absolute","top":0,"left":t.sash+5,"bottom":0,"right":0});
-			self.children(".splitter").css("left",t.sash);
+            if (!t.inverse)
+            {
+			    p0.css({"position":"absolute","top":0,"bottom":0,"left":0,"width":t.sash});
+			    p1.css({"position":"absolute","top":0,"left":t.sash+5,"bottom":0,"right":0});
+			    self.children(".splitter").css("left",t.sash);
+            }
+            else
+            {
+			    p1.css({"position":"absolute","top":0,"bottom":0,"right":0,"width":t.sash});
+			    p0.css({"position":"absolute","top":0,"right":t.sash+5,"bottom":0,"left":0});
+			    self.children(".splitter").css("right",t.sash);
+            }
             return false;
         },
         snap:function()
